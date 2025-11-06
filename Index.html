@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Subject and Program Selector</title>
-  <link rel="icon" type="image/png" href="vslogo.png">
+  <title>Visual Studio Code</title>
   
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="vslogo.png">
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,6 +15,8 @@
       padding: 0;
       background-color: #f0f0f0;
     }
+
+    /* Logo in top-right corner */
     .logo {
       position: absolute;
       top: 10px;
@@ -20,16 +24,19 @@
       width: 40px;
       height: 40px;
     }
+
     .container {
       width: 100%;
       background-color: #ffffff;
       justify-content: center;
     }
+
     h1, h2 {
       text-align: center;
       color: #333;
       font-size: 5px;
     }
+
     .subject, .program {
       cursor: pointer;
       color: #007BFF;
@@ -37,12 +44,15 @@
       text-align: center;
       font-size: 5px;
     }
+
     .subject:hover, .program:hover {
       text-decoration: underline;
     }
+
     #programs, #codeDisplay {
       margin-top: 20px;
     }
+
     pre {
       background: #f0f0f0;
       padding: 10px;
@@ -54,6 +64,7 @@
 </head>
 <body>
 
+  <!-- Logo in top-right corner -->
   <img src="vscode.png" alt="Parikshak" class="logo">
 
   <div class="container">
@@ -71,25 +82,27 @@
   </div>
 
 <script>
-// ✅ Automatically handle filenames with spaces
+// ✅ Helper: safely encode file names (handles spaces)
 function safeFilePath(path) {
   return encodeURI(path);
 }
 
-// ✅ Fixed SEPM Definition
+// Programs and their codes
 const data = {
   SEPM: {
-    "Modular Grading System": {
-      code: `
+    "Modular Grading System":  `
 @startuml
 title Modular Grading System
+
 start
+
 partition "Input Module (getInput)" {
     :Prompt "Enter Student Serial Number";
     :Read serialNo;
     :Prompt "Enter Score";
     :Read score;
 }
+
 partition "Grade Calculation Module (calculateGrade)" {
     if (score >= 90 && score <= 100) then (A)
         :grade = "A";
@@ -105,56 +118,921 @@ partition "Grade Calculation Module (calculateGrade)" {
         :grade = "F";
     endif
 }
+
 partition "Output Module (displayResult)" {
     :Print "Student Serial No: " + serialNo;
     :Print "Score: " + score;
     :Print "Grade: " + grade;
 }
+
 stop
 @enduml
 `,
-      docx: "Library Management System ect.docx" // you can keep spaces!
+
+
+
+    "University Management System": `
+    1. Waterfall Model
+
+@startuml
+title **Waterfall Model**
+
+skinparam rectangle {
+  BackgroundColor #E6F0FA
+  BorderColor #5B9BD5
+  RoundCorner 15
+}
+
+skinparam node {
+  BackgroundColor #CFE2F3
+  BorderColor #5B9BD5
+}
+
+rectangle "WATERFALL MODEL" {
+  start
+  :Waterfall Start;
+  :Admission Phase;
+  :Academics Phase;
+  :Grading Phase;
+  :Fees Phase;
+  :Library Phase;
+  stop
+}
+@enduml
+
+
+2. Incremental Model
+
+@startuml
+title **Incremental Model**
+
+skinparam rectangle {
+  BackgroundColor #FFF3E0
+  BorderColor #FB8C00
+  RoundCorner 15
+}
+
+skinparam node {
+  BackgroundColor #FFE0B2
+  BorderColor #FB8C00
+}
+
+rectangle "INCREMENTAL MODEL" {
+  start
+  :Incremental Start;
+  :Increment 1\nAdmission;
+  :Increment 2\nAcademics;
+  :Increment 3\nGrading;
+  :Increment 4\nFees;
+  :Increment 5\nLibrary;
+  stop
+}
+@enduml
+
+
+3. Evolutionary Model
+
+@startuml
+title **Evolutionary Model**
+
+skinparam rectangle {
+  BackgroundColor #F3E5F5
+  BorderColor #BA68C8
+  RoundCorner 15
+}
+
+skinparam node {
+  BackgroundColor #E1BEE7
+  BorderColor #8E24AA
+}
+
+rectangle "EVOLUTIONARY MODEL" {
+  start
+  :Evolutionary Start;
+  :Initial Prototype;
+  :User Feedback;
+  :Enhanced Prototype;
+  :Further Enhancement;
+  :More Feedback;
+  :Final System;
+  stop
+}
+@enduml
+
+
+4. Agile Model
+
+
+@startuml
+title **Agile Model**
+
+skinparam rectangle {
+  BackgroundColor #E8F5E9
+  BorderColor #43A047
+  RoundCorner 15
+}
+
+skinparam node {
+  BackgroundColor #C8E6C9
+  BorderColor #2E7D32
+}
+
+rectangle "AGILE MODEL" {
+  start
+  :Agile Start;
+  :Sprint 1\nAdmissions;
+  :Sprint Review 1;
+  :Sprint 2\nGrading;
+  :Sprint Review 2;
+  :Sprint 3\nLibrary;
+  :Sprint Review 3;
+  :Agile End;
+  stop
+}
+@enduml
+`,
+ 
+
+
+
+"Online Food Ordering System": {
+      code: `
+
+@startuml
+title Online Food Ordering System - Structure Chart
+
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #000000
+  FontStyle bold
+  RoundCorner 10
+}
+
+skinparam shadowing false
+skinparam dpi 200
+
+' ========== Top Level ==========
+rectangle "Online Food Ordering System" as OFOS {
+
+  ' -------- Customer Management --------
+  rectangle "Customer Management" as CM {
+    rectangle "Customer Registration"
+    rectangle "Customer Login"
+  }
+  ' -------- Menu Management --------
+  rectangle "Menu Management" as MM {
+    rectangle "Menu Retrieval"
+  }
+  ' -------- Order Processing --------
+  rectangle "Order Processing" as OP {
+    rectangle "Order Validation"
+    rectangle "Order Placement"
+    rectangle "Order Tracking"
+  }
+  ' -------- Payment Processing --------
+  rectangle "Payment Processing" as PP {
+    rectangle "Payment Confirmation"
+    rectangle "Payment Validation"
+  }
+  ' -------- Restaurant Communication --------
+  rectangle "Restaurant Communication" as RC {
+    rectangle "Order Forwarding"
+  }
+  ' -------- Inventory Management --------
+  rectangle "Inventory Management" as IM {
+    rectangle "Stock Update"
+  }
+  ' -------- Notification Service --------
+  rectangle "Notification Service" as NS {
+    rectangle "Delivery Status Notification"
+    rectangle "Confirmation Notification"
+  }
+}
+@enduml
+`,
+ docx: "online food ordering system.docx"
     },
 
-    "Online Food Ordering System": {
-      code: `
+"Online food ordering system Coupling and Cohesion ": `
 @startuml
-title Online Food Ordering System
-:Login;
-:Select Food Items;
-:Place Order;
-:Make Payment;
-stop
-@enduml
-`,
-      docx: "online food ordering system.docx" // also works with spaces
-    }
-  },
+title **Coupling and Cohesion Diagram**
 
-  DBMS: {
-    "SQL Join Example": {
-      code: `
--- SQL INNER JOIN Example
+skinparam rectangle {
+  RoundCorner 20
+  BorderColor black
+  FontSize 14
+}
+
+skinparam note {
+  BackgroundColor #FFFFFF
+  BorderColor black
+  FontSize 12
+}
+
+'--- Components ---
+rectangle "<b>User Authentification" as UA #white
+
+rectangle "<b>Order Processing\n<font color=green>Functional Cohesion" as OP #white
+
+rectangle "<b>Payment Gateway\n<font color=green>Functional Cohesion" as PG #white
+
+rectangle "<b>Delivery Tracking\n<font color=green>Communicational Cohesion" as DT1 #white
+
+rectangle "<b>Delivery Tracking\n<font color=orange>Communicational Cohesion" as DT2 #FFF3E0
+
+rectangle "<b>Admin Dashboard\n<font color=red>Coincidental Cohesion\n(Poor Design)" as AD #FFEBEE
+
+'--- Connections ---
+UA -down-> OP : data coupling
+OP -down-> DT1 : data coupling
+DT1 -down-> DT2 : data coupling
+OP -right-> PG : data coupling
+DT1 -right-> AD : data coupling
+PG -down-> AD : common coupling
+
+@enduml
+
+`,
+
+
+
+
+"Disaster Management and Relief Coordination System (DMRCS)": {
+      code:`
+1.Context-Level DFD
+
+@startuml
+title Disaster Management & Relief Coordination System (DMRCS)
+
+' Define entities
+rectangle "Citizens\n(Report Emergencies)" as Citizens
+rectangle "Emergency Services\n(Fire, Police, Ambulance)" as Emergency
+rectangle "Relief Agencies\n(NGOs, Local Teams)" as Relief
+rectangle "Government\nAgencies & Decision Makers" as Government
+
+' Define the main system
+rectangle "Disaster Management &\nRelief Coordination System (DMRCS)" as DMRCS {
+}
+
+' Data Flows
+Citizens --> DMRCS : Emergency Reports
+DMRCS --> Citizens : Status Updates / Alerts
+
+DMRCS --> Emergency : Dispatch Requests
+Emergency --> DMRCS : Service Status
+
+DMRCS --> Relief : Resource Requests
+Relief --> DMRCS : Relief Availability
+
+DMRCS --> Government : Situation Reports
+Government --> DMRCS : Instructions / Policy Directives
+
+@enduml
+
+2.Level-1 DFD
+
+@startuml
+title Disaster Management & Relief Coordination System (DMRCS) - Level 1 DFD
+
+skinparam rectangle {
+  BackgroundColor #EAF2FB
+  BorderColor #0B3D91
+  RoundCorner 15
+}
+skinparam note {
+  BackgroundColor #FFF5E1
+  BorderColor #FFAA00
+}
+
+' External Entities
+rectangle "Citizens\n(Report Emergencies)" as Citizens
+rectangle "Emergency Services\n(Fire, Police, Ambulance)" as Emergency
+rectangle "Government Agencies\n& Decision Makers" as Government
+rectangle "Relief Agencies\n(NGOs, Local Teams)" as Relief
+
+' Data Stores
+note "D1: Resource Inventory" as D1
+note "D2: Affected Areas DB" as D2
+
+' Processes
+rectangle "1.0 Report Emergency" as P1
+rectangle "2.0 Dispatch Services" as P2
+rectangle "3.0 Manage Resources" as P3
+rectangle "4.0 Update Status" as P4
+rectangle "5.0 Communicate with Agencies" as P5
+rectangle "6.0 Generate Reports\n(Update Affected Zones)" as P6
+
+' Data Flows
+Citizens --> P1 : Emergency Details
+P1 --> D1 : Store Data
+P1 --> P2 : Validated Emergency
+P2 --> Emergency : Dispatch Request
+Emergency --> P2 : Service Status
+P3 --> D1 : Update Inventory
+D1 --> P3 : Resource Data
+P3 --> P4 : Allocated Resources
+P4 --> P6 : Status Data
+P6 --> D2 : Update Affected Zones
+P6 --> P5 : Situation Reports
+P5 --> Government : Situation Reports
+Government --> P5 : Instructions
+Relief --> P6 : Availability Info
+P6 --> Relief : Resource Requests
+P6 --> Government : Zone Status
+D2 --> P5 : Zone Data
+P4 --> P5 : Status Updates
+P2 --> P4 : Service Status
+P4 --> D1 : Update Inventory
+
+@enduml
+
+`, 
+ docx: "Disaster Management and Relief Coordination System.docx"
+    },
+
+
+
+
+
+"Domain Analysis for a Library Management System": `
+ @startuml
+title Library Management System - Use Case Diagram
+
+actor "Student" as S
+actor "Librarian" as L
+actor "Administrator" as A
+
+rectangle "Library Management System" {
+    usecase "Search Books" as UC1
+    usecase "Issue Book" as UC2
+    usecase "Return Book" as UC3
+    usecase "Renew Book" as UC4
+    usecase "Generate Overdue Report" as UC5
+    usecase "Manage User Accounts" as UC6
+}
+
+' --- Associations ---
+S --> UC1
+S --> UC4
+
+L --> UC2
+L --> UC3
+L --> UC5
+
+A --> UC6
+
+@enduml
+
+`,
+
+
+
+
+
+"Online Course Registration System": {
+      code:`
+ def validate_registration(student_id, num_courses, course_code, payment_mode):
+    if len(student_id) != 8 or not student_id.isdigit():
+        return "Invalid Student ID"   
+    if num_courses < 3 or num_courses > 6:
+        return "Invalid Number of Courses"    
+    if not (len(course_code) == 5 and course_code[:2].isalpha() and course_code[2:].isdigit()):
+        return "Invalid Course Code"   
+    if payment_mode not in ["Credit", "Debit", "UPI", "NetBanking"]:
+        return "Invalid Payment Mode"   
+    return "Registration Successful"
+test_cases = [
+    ("TC01", "12345678", 4, "CS101", "Credit"),
+    ("TC02", "1234", 4, "CS101", "Credit"),
+    ("TC03", "12345678", 2, "CS101", "UPI"),
+    ("TC04", "12345678", 7, "CS101", "NetBanking"),
+    ("TC05", "12345678", 5, "C101", "Debit"),
+    ("TC06", "87654321", 6, "IT202", "PayPal"),
+    ("TC07", "ABCD5678", 4, "CS101", "UPI"),
+    ("TC08", "13579246", 3, "MA303", "NetBanking")]
+print("=== Online Course Registration System - ECT Testing ===\n")
+for tc in test_cases:
+    tc_id, sid, courses, code, payment = tc
+    result = validate_registration(sid, courses, code, payment)
+    print(f"{tc_id}: {result}")
+
+
+`,
+ pdf: "Online Course Registration System.pdf"
+    },
+
+
+
+
+
+
+"E-Commerce Discount and Payment Validation System ": {
+      code:`
+ def process_order(cart_amount, is_premium, payment_valid): 
+    discount = 0 
+    order_status = "" 
+    if cart_amount >= 2000: 
+        discount += 10 
+    if is_premium: 
+        discount += 5 
+    if discount > 20: 
+        discount = 20 
+    if payment_valid: 
+        order_status = "Accepted" 
+    else: 
+        order_status = "Cancelled" 
+    return { 
+        "Cart Amount": cart_amount, 
+        "Premium Member": is_premium, 
+        "Payment Valid": payment_valid, 
+        "Final Discount (%)": discount, 
+        "Order Status": order_status } 
+test_cases = [ 
+    (1500, False, True), 
+    (2500, False, True), 
+    (2500, True, True), 
+    (4000, True, True), 
+    (2500, True, False), 
+    (1500, True, True), 
+    (1500, False, False), 
+    (4000, False, True) ]  
+print("---- Decision Table Test Results ----") 
+for i, case in enumerate(test_cases, start=1): 
+    result = process_order(*case) 
+    print(f"Test Case {i}: {result}") 
+`,
+ pdf: "E-Commerce Discount and Payment Validation System.pdf"
+    },
+
+
+
+
+
+"Hospital Appointment Management System": {
+      code:`
+ Open: jira tool
+Use Kanban template
+Name your project : New Project
+ Get started > Next > Finish
+Go to Setting in right corner > System > Import and export (External System import)
+Scroll down to see "CSV" > Select file csv file to import > Next
+Jira Space(Software Space) > Project Name (My Project) > Next > Next
+Click 'Exclude from Import' > Next > Next > Import
+
+`,
+ csv: "Hospital Appointment Management System.csv"
+    },
+
+
+
+
+
+"Smart Parking Management System": `
+ PlantUML code — Waterfall
+@startuml
+' Waterfall: linear flow of phases
+skinparam rectangle {
+  BackgroundColor #FBEFEF
+  BorderColor #D9534F
+}
+rectangle "Requirements\n(Design Spec)" as R
+rectangle "System Design" as D
+rectangle "Implementation\n(Coding)" as I
+rectangle "Integration & Test" as T
+rectangle "Deployment" as DEP
+rectangle "Maintenance" as M
+
+R --> D
+D --> I
+I --> T
+T --> DEP
+DEP --> M
+@enduml
+
+PlantUML code — Incremental
+@startuml
+' Incremental: core + increments delivered in waves
+skinparam rectangle {
+  BackgroundColor #EEF9F1
+  BorderColor #2E8B57
+}
+rectangle "Core System\n(MVP)" as Core
+rectangle "Increment 1\n(Parking Detection)" as Inc1
+rectangle "Increment 2\n(Payments & Wallet)" as Inc2
+rectangle "Increment 3\n(Analytics & Reports)" as Inc3
+rectangle "Integration & Regression\nTesting" as Test
+rectangle "Production" as Prod
+
+Core --> Inc1
+Core --> Inc2
+Core --> Inc3
+Inc1 --> Test
+Inc2 --> Test
+Inc3 --> Test
+Test --> Prod
+@enduml
+
+PlantUML code — Spiral (risk-driven iterative)
+@startuml
+' Spiral: iterative cycles focusing on objectives, risk analysis, prototyping and evaluation
+skinparam rectangle {
+  BackgroundColor #FFF8E1
+  BorderColor #F0AD4E
+}
+
+rectangle "Identify Objectives\n(Reqs & Goals)" as O
+rectangle "Risk Analysis\n(Feasibility & HW/Sw risks)" as R
+rectangle "Prototyping\n(Proof-of-concept)" as P
+rectangle "Development & Test\n(Iteration)" as D
+rectangle "Evaluate & Plan Next Spiral" as E
+
+O --> R
+R --> P
+P --> D
+D --> E
+E --> O : next cycle / refine
+note right of R
+  Cycle focuses on risks:
+  - Sensor integration
+  - Data privacy / compliance
+  - Scalability
+end note
+@enduml
+
+PlantUML code — Agile (Scrum-style iterative)
+@startuml
+' Agile (Scrum) sprint loop: backlog -> plan -> sprint -> review -> release/retrospective
+skinparam rectangle {
+  BackgroundColor #E8F4FF
+  BorderColor #2B6CB0
+}
+
+rectangle "Product Backlog\n(Features, Epics)" as Backlog
+rectangle "Sprint Planning" as Plan
+rectangle "Sprint (2-4 wks)\nDevelopment + Test" as Sprint
+rectangle "Sprint Review\n(Demo)" as Review
+rectangle "Sprint Retrospective\n(Improvement)" as Retro
+rectangle "Production Release\n(Minor/Incremental)" as Release
+
+Backlog --> Plan
+Plan --> Sprint
+Sprint --> Review
+Review --> Release
+Review --> Retro
+Retro --> Backlog : improvements / new backlog items
+Release --> Backlog : feedback
+@enduml
+
+Why (brief):
+Time: Agile enables early incremental deliveries (MVPs) so parking features (e.g., slot detection, payments, admin dashboard) can be released fast and improved continuously.
+Cost: Better cost control — deliver high-value features first; fewer wasted dev-hours on requirements that change.
+Requirement changes: Smart Parking projects typically have evolving requirements (integrations with hardware, sensors, mobile apps, payment gateways). Agile handles changing requirements far better than Waterfall or pure Sequential models.
+If constraints force a hybrid, you can combine Agile + Spiral (risk-driven iterations) for high-risk integrations (hardware, 3rd-party sensors).
+
+Quick comparison (1-line)
+Agile: Best for changing requirements, fast time-to-market, moderate predictable cost (recommended).
+Spiral: Best when risks are high (hardware/integration) — more time/cost but reduces risk early.
+Incremental: Good when system can be built in chunks with well-defined increments; medium flexibility.
+Waterfall: Best for stable requirements and heavy compliance — low flexibility, lowest iteration cost but high rework risk if requirements change.
+`,
+    
+
+
+
+
+
+"Patient Record Management System": `
+ Context-Level DFD (Draw.io / PlantUML Version)
+
+@startuml
+title Context-Level DFD for Patient Record Management System
+
+rectangle "Patient Record Management System" as System {
+}
+
+actor "Patient" as Patient
+actor "Doctor" as Doctor
+actor "Insurance Agency" as Insurance
+
+database "Patient Database" as PatientDB
+database "Medical Records Database" as MedicalDB
+
+Patient --> System : Patient Info, Appointment Request
+System --> Patient : Appointment Confirmation, Reports
+
+Doctor --> System : Diagnosis, Prescriptions
+System --> Doctor : Patient Records, History
+
+Insurance --> System : Claim Verification
+System --> Insurance : Billing Details, Claim Data
+
+System --> PatientDB : Store/Update Patient Info
+System --> MedicalDB : Store Medical Records
+@enduml
+
+
+Level-1 DFD (Draw.io / PlantUML Version)
+
+
+@startuml
+title Level-1 DFD for Patient Record Management System
+
+actor "Patient" as Patient
+actor "Doctor" as Doctor
+actor "Admin" as Admin
+
+database "D1: Patient Database" as PatientDB
+database "D2: Medical History Database" as MedicalDB
+database "D3: Billing Database" as BillingDB
+
+rectangle "1.0 Registration" as Reg
+rectangle "2.0 Medical Records Management" as MedRec
+rectangle "3.0 Appointment Scheduling" as App
+rectangle "4.0 Billing & Payments" as Bill
+rectangle "5.0 Reporting & Analytics" as Report
+
+Patient --> Reg : Provide Personal Info
+Reg --> PatientDB : Store Patient Data
+
+Patient --> App : Appointment Request
+App --> PatientDB : Verify Patient Info
+App --> MedRec : Retrieve Medical History
+App --> Patient : Appointment Confirmation
+
+Doctor --> MedRec : Add Diagnosis & Notes
+MedRec --> MedicalDB : Update Patient Medical History
+MedRec --> Doctor : Patient Details
+
+Patient --> Bill : Payment Details
+Bill --> BillingDB : Store Billing Record
+Bill --> Patient : Invoice / Receipt
+
+Admin --> Report : Generate Reports
+Report --> PatientDB : Access Patient Info
+Report --> MedicalDB : Access Medical Data
+Report --> BillingDB : Access Billing Data
+@enduml
+
+`,
+
+
+
+
+
+
+"Food Delivery Application": `
+ Use Case Diagram - Food Delivery Application
+
+@startuml
+title Use Case Diagram for Food Delivery Application
+
+' Define actors
+actor "Customer" as Customer
+actor "Restaurant" as Restaurant
+actor "Delivery Agent" as Agent
+actor "Admin" as Admin
+
+' System boundary
+rectangle "Food Delivery Application" as FDA {
+    usecase "Register / Login" as UC1
+    usecase "Browse Restaurants & Menus" as UC2
+    usecase "Place Order" as UC3
+    usecase "Track Order" as UC4
+    usecase "Make Payment" as UC5
+    usecase "Provide Rating / Feedback" as UC6
+    usecase "Manage Menu Items" as UC7
+    usecase "Accept / Reject Order" as UC8
+    usecase "Deliver Order" as UC9
+    usecase "Manage Users & Reports" as UC10
+}
+
+' Relationships
+Customer --> UC1
+Customer --> UC2
+Customer --> UC3
+Customer --> UC4
+Customer --> UC5
+Customer --> UC6
+
+Restaurant --> UC7
+Restaurant --> UC8
+UC3 --> UC5 : <<include>>
+UC3 --> UC4 : <<extend>>
+
+Agent --> UC9
+UC8 --> UC9 : <<include>>
+
+Admin --> UC10
+
+@enduml
+
+
+
+Class Diagram – Food Delivery Application
+
+
+@startuml
+title Class Diagram for Food Delivery Application
+
+' Define main classes
+class User {
+    +userID: int
+    +name: string
+    +email: string
+    +password: string
+    +login()
+    +logout()
+}
+
+class Customer {
+    +browseRestaurants()
+    +placeOrder()
+    +makePayment()
+    +trackOrder()
+    +giveFeedback()
+}
+
+class Restaurant {
+    +restaurantID: int
+    +restaurantName: string
+    +menuItems: List<MenuItem>
+    +acceptOrder()
+    +updateMenu()
+}
+
+class MenuItem {
+    +itemID: int
+    +name: string
+    +price: float
+    +availability: boolean
+}
+
+class Order {
+    +orderID: int
+    +orderDate: date
+    +status: string
+    +calculateTotal()
+}
+
+class Payment {
+    +paymentID: int
+    +amount: float
+    +paymentType: string
+    +processPayment()
+}
+
+class DeliveryAgent {
+    +agentID: int
+    +name: string
+    +phone: string
+    +updateDeliveryStatus()
+}
+
+class Admin {
+    +generateReports()
+    +manageUsers()
+    +manageRestaurants()
+}
+
+' Relationships
+User <|-- Customer
+User <|-- Restaurant
+User <|-- DeliveryAgent
+User <|-- Admin
+
+Customer "1" -- "many" Order : places >
+Restaurant "1" -- "many" Order : receives >
+Order "1" -- "1" Payment : has >
+Order "1" -- "many" MenuItem : contains >
+DeliveryAgent "1" -- "many" Order : delivers >
+
+@enduml
+
+
+`,
+ 
+
+
+
+
+"Library Management System": {
+      code:`
+ def validate_registration(name, email, age, password):
+    if not name.isalpha():
+        return "Invalid name"
+    if "@" not in email or "." not in email.split("@")[-1]:
+        return "Invalid email format"
+    if not (12 <= age <= 80):
+        return "Invalid age"
+    if len(password) < 8:
+        return "Password too short"
+    return "Registration successful"
+
+
+def validate_book_issue(membership_status, books_available, books_issued):
+    if membership_status.lower() != "active":
+        return "Access denied – Invalid membership"
+    if books_available <= 0:
+        return "Book not available"
+    if books_issued >= 5:
+        return "Issue limit exceeded"
+    return "Book issued successfully"
+
+
+def calculate_fine(days_late):
+    if days_late < 0:
+        return "Invalid input"
+    elif days_late > 30:
+        return "Exceeds maximum late period"
+    else:
+        return f"Fine: ₹{days_late * 10}"
+
+
+def run_unit_tests():
+    print("\n=== UNIT TESTS: LIBRARY MANAGEMENT SYSTEM (ECT) ===\n")
+
+    print("User Registration Tests:")
+    test_cases_reg = [
+        ("Srushti", "srushti@mail.com", 21, "Test@123"),
+        ("1234", "srushti@mail.com", 21, "Test@123"),
+        ("Srushti", "srushtimail.com", 21, "Test@123"),
+        ("Srushti", "srushti@mail.com", 9, "Test@123"),
+        ("Srushti", "srushti@mail.com", 21, "pass"),
+    ]
+    for case in test_cases_reg:
+        result = validate_registration(*case)
+        print(f"Input: {case} → Output: {result}")
+
+    print("\nBook Issue Tests:")
+    test_cases_issue = [
+        ("active", 3, 2),
+        ("expired", 3, 2),
+        ("active", 0, 1),
+        ("active", 2, 5),
+    ]
+    for case in test_cases_issue:
+        result = validate_book_issue(*case)
+        print(f"Input: {case} → Output: {result}")
+
+    print("\nFine Calculation Tests:")
+    test_cases_fine = [0, 10, -5, 45]
+    for days in test_cases_fine:
+        result = calculate_fine(days)
+        print(f"Days Late: {days} → Output: {result}")
+
+    print("\n=== END OF TESTS ===")
+
+
+if __name__ == "__main__":
+    run_unit_tests()
+`, docx: "Library_Management_System_Requirements.docx"
+    },
+
+
+
+"College ERP Implementation Project Gantt Chart": {
+      code:`
+ Jira File
+`,
+ csv: "College_ERP_CSV.csv"
+    },
+
+
+
+
+"  Cloud Data Migration Project Jira": {
+      code:`
+ Jira file
+`,
+ docx: "Cloud_Data_Migration_Risk_Register.csv"
+    },
+    
+},
+  
+EH: {
+    "SQL Join Example": `-- SQL INNER JOIN Example
 SELECT employees.name, departments.dept_name
 FROM employees
 INNER JOIN departments
-ON employees.dept_id = departments.id;
-`,
-      csv: "SQL Join Example.csv" // works fine too
-    }
+ON employees.dept_id = departments.id;`
   },
-
-  EH: {
-    "Cloud Data Migration Project Jira": {
-      code: `JIRA Risk Register Configuration Example`,
-      csv: "Cloud Data Migration Project Jira.csv"
+  
+DBMS: {
+    "FCFS Scheduling": `// First Come First Serve Scheduling
+public class FCFS {
+    public static void main(String[] args) {
+        // Code for FCFS scheduling
     }
+}`
   },
-
-  PYTHON: {
-    "Stop and Wait Protocol": {
-      code: `# Stop and Wait Protocol Implementation\nprint("Waiting for ACK...")`
+  
+PYTHON: {
+    "Stop and Wait Protocol": `// Stop and Wait Protocol Implementation
+public class StopAndWait {
+    public static void main(String[] args) {
+        // Basic implementation
     }
+}`
   }
 };
 
@@ -162,7 +1040,7 @@ ON employees.dept_id = departments.id;
 function showPrograms(subject) {
   const programsDiv = document.getElementById('programs');
   const codeDisplay = document.getElementById('codeDisplay');
-  codeDisplay.innerHTML = ''; 
+  codeDisplay.innerHTML = ''; // Clear previous code
   let html = '<h2>Programs:</h2>';
   for (const programName in data[subject]) {
     html += `<div class="program" onclick="showCode('${subject}', '${programName}')">${programName}</div>`;
@@ -170,31 +1048,37 @@ function showPrograms(subject) {
   programsDiv.innerHTML = html;
 }
 
-// ✅ Show code (with Copy + auto-encoded file download links)
+// ✅ Show code + DOCX download option
 function showCode(subject, programName) {
   const codeDisplay = document.getElementById('codeDisplay');
   const program = data[subject][programName];
+
   const escapedCode = program.code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
   let html = `
     <h2>${programName} Code:</h2>
     <div style="position: relative;">
-      <button onclick="copyCode()" style="position: absolute; top: 10px; right: 10px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; height: 10px; width: 25px; font-size: 5px;">Copy</button>
+      <button onclick="copyCode()" 
+        style="position: absolute; top: 10px; right: 10px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; height: 10px; width: 25px; font-size: 5px;">
+        Copy
+      </button>
       <pre id="codeBlock">${escapedCode}</pre>
     </div>
   `;
 
+  // ✅ Add Word file download link if available
   if (program.docx) {
-    html += `<p><a href="${safeFilePath(program.docx)}" download style="color:#007BFF;">📘 Download DOCX</a></p>`;
-  }
-  if (program.csv) {
-    html += `<p><a href="${safeFilePath(program.csv)}" download style="color:#007BFF;">📊 Download CSV</a></p>`;
+    html += `
+      <p style="text-align:center;">
+        <a href="${safeFilePath(program.docx)}" download style="color:#007BFF;">📘 Download Word File</a>
+      </p>
+    `;
   }
 
   codeDisplay.innerHTML = html;
 }
 
-// ✅ Copy function
+// ✅ Copy to clipboard function
 function copyCode() {
   const codeText = document.getElementById('codeBlock').innerText;
   navigator.clipboard.writeText(codeText).then(() => {
