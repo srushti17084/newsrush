@@ -92,7 +92,8 @@ function getFileIcon(fileName) {
 // ✅ Data: programs + any file attachments
 const data = {
   SEPM: {
-    "Modular Grading System":  `
+    "Modular Grading System":  {
+      code:`
 @startuml
 title Modular Grading System
 
@@ -130,8 +131,10 @@ partition "Output Module (displayResult)" {
 stop
 @enduml
 `,
-
-
+files: [
+        "Modular Grading System.docx"
+      ] 
+    },
 
     "University Management System": `
     1. Waterfall Model
@@ -316,7 +319,8 @@ rectangle "Online Food Ordering System" as OFOS {
    ]
     },
 
-"Online food ordering system Coupling and Cohesion ": `
+"Online food ordering system Coupling and Cohesion ": {
+      code:`
 @startuml
 title **Coupling and Cohesion Diagram**
 
@@ -356,7 +360,10 @@ PG -down-> AD : common coupling
 @enduml
 
 `,
-
+files: [
+       "Online food ordering system Coupling and Cohesion.docx" 
+      ] 
+    },
 
 
 
@@ -459,7 +466,8 @@ P4 --> D1 : Update Inventory
 
 
 
-"Domain Analysis for a Library Management System": `
+"Domain Analysis for a Library Management System": {
+      code:`
  @startuml
 title Library Management System - Use Case Diagram
 
@@ -489,7 +497,10 @@ A --> UC6
 @enduml
 
 `,
-
+files: [
+        "Domain Analysis for a Library Management System.docx"
+      ] 
+    },
 
 
 
@@ -598,7 +609,8 @@ Click 'Exclude from Import' > Next > Next > Import
 
 
 
-"Smart Parking Management System": `
+"Smart Parking Management System": {
+      code:`
  PlantUML code — Waterfall
 @startuml
 ' Waterfall: linear flow of phases
@@ -706,13 +718,17 @@ Spiral: Best when risks are high (hardware/integration) — more time/cost but r
 Incremental: Good when system can be built in chunks with well-defined increments; medium flexibility.
 Waterfall: Best for stable requirements and heavy compliance — low flexibility, lowest iteration cost but high rework risk if requirements change.
 `,
-    
+    files: [
+        "Smart Parking Management System.docx"
+      ] 
+    },
 
 
 
 
 
-"Patient Record Management System": `
+"Patient Record Management System": {
+      code:`
  Context-Level DFD (Draw.io / PlantUML Version)
 
 @startuml
@@ -785,13 +801,17 @@ Report --> BillingDB : Access Billing Data
 @enduml
 
 `,
+files: [
+        "Patient Record Management System.docx"
+      ] 
+    },
 
 
 
 
 
-
-"Food Delivery Application": `
+"Food Delivery Application": {
+      code:`
  Use Case Diagram - Food Delivery Application
 
 @startuml
@@ -921,7 +941,10 @@ DeliveryAgent "1" -- "many" Order : delivers >
 
 
 `,
- 
+ files: [
+        "Food Delivery Application.pdf"
+      ] 
+    },
 
 
 
@@ -996,7 +1019,10 @@ def run_unit_tests():
 
 if __name__ == "__main__":
     run_unit_tests()
-`, docx: "Library_Management_System_Requirements.docx"
+`, 
+files: [
+        "Library_Management_System_Requirements.docx"
+      ]  
     },
 
 
@@ -1005,7 +1031,9 @@ if __name__ == "__main__":
       code:`
  Jira File
 `,
- csv: "College_ERP_CSV.csv"
+ files: [
+        "College_ERP_CSV.csv"
+      ]  
     },
 
 
@@ -1015,7 +1043,9 @@ if __name__ == "__main__":
       code:`
  Jira file
 `,
- docx: "Cloud_Data_Migration_Risk_Register.csv"
+ files: [
+        "Cloud_Data_Migration_Risk_Register.csv"
+      ]  
     },
     
 },
