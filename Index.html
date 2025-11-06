@@ -15,8 +15,6 @@
       padding: 0;
       background-color: #f0f0f0;
     }
-
-    /* Logo in top-right corner */
     .logo {
       position: absolute;
       top: 10px;
@@ -24,19 +22,16 @@
       width: 40px;
       height: 40px;
     }
-
     .container {
       width: 100%;
       background-color: #ffffff;
       justify-content: center;
     }
-
     h1, h2 {
       text-align: center;
       color: #333;
       font-size: 5px;
     }
-
     .subject, .program {
       cursor: pointer;
       color: #007BFF;
@@ -44,15 +39,12 @@
       text-align: center;
       font-size: 5px;
     }
-
     .subject:hover, .program:hover {
       text-decoration: underline;
     }
-
     #programs, #codeDisplay {
       margin-top: 20px;
     }
-
     pre {
       background: #f0f0f0;
       padding: 10px;
@@ -64,7 +56,6 @@
 </head>
 <body>
 
-  <!-- Logo in top-right corner -->
   <img src="vscode.png" alt="Parikshak" class="logo">
 
   <div class="container">
@@ -82,12 +73,23 @@
   </div>
 
 <script>
-// ✅ Helper: safely encode file names (handles spaces)
+// ✅ Helper — automatically encode filenames (handles spaces)
 function safeFilePath(path) {
   return encodeURI(path);
 }
 
-// Programs and their codes
+// ✅ Helper — choose proper emoji/icon by file type
+function getFileIcon(fileName) {
+  const ext = fileName.split('.').pop().toLowerCase();
+  if (ext === "pdf") return "📄";
+  if (ext === "csv") return "📊";
+  if (ext === "docx" || ext === "doc") return "📘";
+  if (ext === "xlsx" || ext === "xls") return "📗";
+  if (ext === "ppt" || ext === "pptx") return "📙";
+  return "📁"; // default icon
+}
+
+// ✅ Data: programs + any file attachments
 const data = {
   SEPM: {
     "Modular Grading System":  `
@@ -1036,11 +1038,11 @@ public class StopAndWait {
   }
 };
 
-// ✅ Show programs based on selected subject
+// ✅ Show programs based on subject
 function showPrograms(subject) {
   const programsDiv = document.getElementById('programs');
   const codeDisplay = document.getElementById('codeDisplay');
-  codeDisplay.innerHTML = ''; // Clear previous code
+  codeDisplay.innerHTML = '';
   let html = '<h2>Programs:</h2>';
   for (const programName in data[subject]) {
     html += `<div class="program" onclick="showCode('${subject}', '${programName}')">${programName}</div>`;
@@ -1048,7 +1050,7 @@ function showPrograms(subject) {
   programsDiv.innerHTML = html;
 }
 
-// ✅ Show code + DOCX download option
+// ✅ Show code + file download options
 function showCode(subject, programName) {
   const codeDisplay = document.getElementById('codeDisplay');
   const program = data[subject][programName];
@@ -1066,19 +1068,25 @@ function showCode(subject, programName) {
     </div>
   `;
 
-  // ✅ Add Word file download link if available
-  if (program.docx) {
-    html += `
-      <p style="text-align:center;">
-        <a href="${safeFilePath(program.docx)}" download style="color:#007BFF;">📘 Download Word File</a>
-      </p>
-    `;
+  // ✅ Add any attached files (auto-detect type)
+  if (program.files && program.files.length > 0) {
+    html += `<h2>Attached Files:</h2><ul style="text-align:center; list-style:none; padding:0;">`;
+    for (const file of program.files) {
+      const icon = getFileIcon(file);
+      html += `
+        <li style="margin:5px;">
+          <a href="${safeFilePath(file)}" download style="color:#007BFF; text-decoration:none;">
+            ${icon} Download ${file.split('.').pop().toUpperCase()} File
+          </a>
+        </li>`;
+    }
+    html += `</ul>`;
   }
 
   codeDisplay.innerHTML = html;
 }
 
-// ✅ Copy to clipboard function
+// ✅ Copy to clipboard
 function copyCode() {
   const codeText = document.getElementById('codeBlock').innerText;
   navigator.clipboard.writeText(codeText).then(() => {
