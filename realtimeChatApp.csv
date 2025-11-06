@@ -1,0 +1,23 @@
+Issue ID,Summary,Issue Type,Priority,Description,Labels,Assignee
+PM-001,Project Charter,Task,High,"Define goals, scope, and stakeholders for the Real-Time Chat Application",Planning,Project Manager
+PM-002,Feasibility Study,Task,Medium,"Analyze technical, financial, and operational feasibility for the project",Planning,System Analyst
+PM-003,Requirement Gathering,Task,Critical,Collect functional and non-functional requirements from stakeholders,Analysis,System Analyst
+PM-004,Work Breakdown Structure (WBS),Task,High,Divide the project into manageable modules and submodules,Planning,Project Manager
+PM-005,PERT & Gantt Chart Creation,Task,High,Plan timeline and dependencies using PERT and Gantt charts,Scheduling,Project Manager
+PM-006,Resource Planning,Task,Medium,"Assign team roles, tools, and technologies",Planning,Project Manager
+PM-007,Risk Management Plan,Task,High,Identify potential risks and mitigation strategies,Risk,Project Manager
+PM-008,Chat Module Development,Task,Critical,Develop WebSocket-based real-time chat functionality,Execution,Developers
+PM-009,Authentication System,Task,Critical,"Implement secure user login, registration, and session management",Execution,Developers
+PM-010,Database Setup,Task,High,"Design schema for users, messages, and groups",Execution,DBA
+PM-011,Group Chat Module,Task,High,Implement group creation and group messaging functionality,Execution,Developers
+PM-012,File Sharing Feature,Task,Medium,Enable file uploads and downloads within chat,Execution,Developers
+PM-013,Notification System,Task,Medium,Integrate real-time push notifications for new messages,Execution,Developers
+PM-014,Testing and QA,Task,Critical,Execute manual and automated test cases in Zephyr,Testing,QA Engineers
+PM-015,Regression Testing,Task,Critical,Perform re-testing after code or feature updates,Testing,QA Engineers
+PM-016,Performance Testing,Task,High,Test system performance with 1000+ concurrent users,Testing,QA Engineers
+PM-017,Security Testing,Task,Critical,Test for data encryption and vulnerability checks,Testing,Security Team
+PM-018,Sprint Review and Monitoring,Task,High,"Monitor sprint velocity, bug trends, and test coverage",Monitoring,Project Manager
+PM-019,Change Management,Task,Medium,Document and approve any project scope changes,Monitoring,Project Manager
+PM-020,Deployment,Task,High,Deploy application to production server and perform smoke testing,Closure,DevOps
+PM-021,Post-Implementation Review,Task,Medium,Collect feedback and measure success metrics,Closure,Project Manager
+PM-022,Documentation & Handover,Task,Medium,"Compile project documents, manuals, and final reports",Closure,Project Manager
