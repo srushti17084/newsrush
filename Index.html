@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Subject and Program Selector</title>
+  <link rel="icon" type="image/png" href="vslogo.png">
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+    .logo {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+    }
+    .container {
+      width: 100%;
+      background-color: #ffffff;
+      justify-content: center;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #333;
+      font-size: 5px;
+    }
+    .subject, .program {
+      cursor: pointer;
+      color: #007BFF;
+      margin: 10px 0;
+      text-align: center;
+      font-size: 5px;
+    }
+    .subject:hover, .program:hover {
+      text-decoration: underline;
+    }
+    #programs, #codeDisplay {
+      margin-top: 20px;
+    }
+    pre {
+      background: #f0f0f0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      white-space: pre-wrap;
+      font-size: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="vscode.png" alt="Parikshak" class="logo">
+
+  <div class="container">
+    <h1>Select a Subject</h1>
+
+    <div id="subjects">
+      <div class="subject" onclick="showPrograms('SEPM')">SEPM</div>
+      <div class="subject" onclick="showPrograms('EH')">EH</div>
+      <div class="subject" onclick="showPrograms('DBMS')">DBMS</div>
+      <div class="subject" onclick="showPrograms('PYTHON')">PYTHON</div>
+    </div>
+
+    <div id="programs"></div>
+    <div id="codeDisplay"></div>
+  </div>
+
+<script>
+// ✅ Automatically handle filenames with spaces
+function safeFilePath(path) {
+  return encodeURI(path);
+}
+
+// ✅ Fixed SEPM Definition
+const data = {
+  SEPM: {
+    "Modular Grading System": {
+      code: `
+@startuml
+title Modular Grading System
+start
+partition "Input Module (getInput)" {
+    :Prompt "Enter Student Serial Number";
+    :Read serialNo;
+    :Prompt "Enter Score";
+    :Read score;
+}
+partition "Grade Calculation Module (calculateGrade)" {
+    if (score >= 90 && score <= 100) then (A)
+        :grade = "A";
+    elseif (score >= 80 && score < 90) then (B)
+        :grade = "B";
+    elseif (score >= 70 && score < 80) then (C)
+        :grade = "C";
+    elseif (score >= 60 && score < 70) then (D)
+        :grade = "D";
+    elseif (score >= 50 && score < 60) then (E)
+        :grade = "E";
+    else (F)
+        :grade = "F";
+    endif
+}
+partition "Output Module (displayResult)" {
+    :Print "Student Serial No: " + serialNo;
+    :Print "Score: " + score;
+    :Print "Grade: " + grade;
+}
+stop
+@enduml
+`,
+      docx: "Library Management System ect.docx" // you can keep spaces!
+    },
+
+    "Online Food Ordering System": {
+      code: `
+@startuml
+title Online Food Ordering System
+:Login;
+:Select Food Items;
+:Place Order;
+:Make Payment;
+stop
+@enduml
+`,
+      docx: "online food ordering system.docx" // also works with spaces
+    }
+  },
+
+  DBMS: {
+    "SQL Join Example": {
+      code: `
+-- SQL INNER JOIN Example
+SELECT employees.name, departments.dept_name
+FROM employees
+INNER JOIN departments
+ON employees.dept_id = departments.id;
+`,
+      csv: "SQL Join Example.csv" // works fine too
+    }
+  },
+
+  EH: {
+    "Cloud Data Migration Project Jira": {
+      code: `JIRA Risk Register Configuration Example`,
+      csv: "Cloud Data Migration Project Jira.csv"
+    }
+  },
+
+  PYTHON: {
+    "Stop and Wait Protocol": {
+      code: `# Stop and Wait Protocol Implementation\nprint("Waiting for ACK...")`
+    }
+  }
+};
+
+// ✅ Show programs based on selected subject
+function showPrograms(subject) {
+  const programsDiv = document.getElementById('programs');
+  const codeDisplay = document.getElementById('codeDisplay');
+  codeDisplay.innerHTML = ''; 
+  let html = '<h2>Programs:</h2>';
+  for (const programName in data[subject]) {
+    html += `<div class="program" onclick="showCode('${subject}', '${programName}')">${programName}</div>`;
+  }
+  programsDiv.innerHTML = html;
+}
+
+// ✅ Show code (with Copy + auto-encoded file download links)
+function showCode(subject, programName) {
+  const codeDisplay = document.getElementById('codeDisplay');
+  const program = data[subject][programName];
+  const escapedCode = program.code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  let html = `
+    <h2>${programName} Code:</h2>
+    <div style="position: relative;">
+      <button onclick="copyCode()" style="position: absolute; top: 10px; right: 10px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; height: 10px; width: 25px; font-size: 5px;">Copy</button>
+      <pre id="codeBlock">${escapedCode}</pre>
+    </div>
+  `;
+
+  if (program.docx) {
+    html += `<p><a href="${safeFilePath(program.docx)}" download style="color:#007BFF;">📘 Download DOCX</a></p>`;
+  }
+  if (program.csv) {
+    html += `<p><a href="${safeFilePath(program.csv)}" download style="color:#007BFF;">📊 Download CSV</a></p>`;
+  }
+
+  codeDisplay.innerHTML = html;
+}
+
+// ✅ Copy function
+function copyCode() {
+  const codeText = document.getElementById('codeBlock').innerText;
+  navigator.clipboard.writeText(codeText).then(() => {
+    const copiedMsg = document.createElement('div');
+    copiedMsg.innerText = 'Copied!';
+    copiedMsg.style.position = 'fixed';
+    copiedMsg.style.bottom = '20px';
+    copiedMsg.style.right = '20px';
+    copiedMsg.style.backgroundColor = '#4caf50';
+    copiedMsg.style.color = '#fff';
+    copiedMsg.style.padding = '10px 15px';
+    copiedMsg.style.borderRadius = '5px';
+    copiedMsg.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
+    copiedMsg.style.zIndex = '1000';
+    document.body.appendChild(copiedMsg);
+    setTimeout(() => copiedMsg.remove(), 1000);
+  });
+}
+</script>
+
+</body>
+</html>

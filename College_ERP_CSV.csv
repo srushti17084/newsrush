@@ -1,0 +1,9 @@
+Work Item ID,Parent ID,Work Type,Key,Issue Type,Parent,Summary,Status,Assignee,Start date,Due date,Issue color
+ERP-1,,Epic,ERP-1,Epic,,College ERP Implementation Project,In Progress,Project Manager,2025/11/01,2025/11/25,purple
+ERP-2,ERP-1,Task,ERP-2,Task,ERP-1,Requirement Analysis and Planning,Done,Analyst,2025/11/02,2025/11/04,purple
+ERP-3,ERP-1,Task,ERP-3,Task,ERP-1,System Design (Architecture + Database),In Progress,Designer,2025/11/04,2025/11/06,purple
+ERP-4,ERP-1,Task,ERP-4,Task,ERP-1,"Module Development (Student, Faculty, Admin)",In Progress,Developers,2025/11/06,2025/11/12,purple
+ERP-5,ERP-1,Task,ERP-5,Task,ERP-1,Integration and Testing,To Do,QA Team,2025/11/12,2025/11/15,purple
+ERP-6,ERP-1,Task,ERP-6,Task,ERP-1,User Acceptance Testing (UAT),To Do,End Users,2025/11/15,2025/11/17,purple
+ERP-7,ERP-1,Task,ERP-7,Task,ERP-1,Training and Documentation,To Do,Trainer,2025/11/17,2025/11/20,purple
+ERP-8,ERP-1,Task,ERP-8,Task,ERP-1,Deployment and Maintenance,To Do,IT Team,2025/11/20,2025/11/25,purple

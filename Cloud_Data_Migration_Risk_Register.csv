@@ -1,0 +1,8 @@
+Summary,Issue Type,Risk Probability,Impact,Mitigation Plan,Risk Status,Risk Owner,Priority,Description
+Data loss during migration,Task,High,High,Maintain frequent data backups and perform incremental syncs during migration.,Open,Srushti Uphade,Medium,Risk of losing data packets during transfer from on-premise to cloud.
+Unauthorized access to sensitive data,Task,High,High,"Implement IAM roles, encryption at rest/in transit, and monitor access logs.",Open,Security Admin,High,Unauthorized users might gain access during transition phase.
+Network latency during migration,Task,Medium,Medium,Schedule migration during off-peak hours and use CDN caching.,Mitigated,Cloud Engineer,Medium,High latency can cause delays in data sync and API failures.
+Downtime of critical applications,Task,High,High,"Implement phased migration, setup failover system, and notify users.",In Progress,Project Manager,High,Critical apps may be unavailable during cutover.
+Data compliance violation (GDPR/PCI),Task,Medium,High,"Validate compliance policies, conduct pre-migration audits, and retain logs.",Open,Compliance Officer,High,Possible data storage in non-compliant regions.
+Cost overrun due to extended cloud usage,Task,Medium,Medium,Track usage via billing dashboards and optimize cloud resources.,Open,Finance Analyst,Medium,Cloud cost may exceed budget if timelines extend.
+Incomplete data verification,Task,Low,High,Automate verification scripts and manual sampling post-migration.,Open,QA Engineer,Medium,Some data might not be validated after migration.

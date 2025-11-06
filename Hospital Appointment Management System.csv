@@ -1,0 +1,8 @@
+Work Item ID,Parent ID,Work Type,Key,Issue Type,Parent,Summary,Status,Assignee,Start date,Due date,Issue color
+THAMS-1,,Epic,THAMS-1,Epic,,Hospital Appointment Management System,In Progress,,2025/11/01,2025/11/16,purple
+THAMS-2,THAMS-1,Task,THAMS-2,Task,THAMS-1,Requirement Analysis,Done,,2025/11/02,2025/11/13,purple
+THAMS-5,THAMS-1,Task,THAMS-5,Task,THAMS-1,Frontend Development,Done,,2025/11/02,2025/11/06,purple
+THAMS-3,THAMS-1,Task,THAMS-3,Task,THAMS-1,System Design,In Progress,,2025/11/02,2025/11/03,purple
+THAMS-4,THAMS-1,Task,THAMS-4,Task,THAMS-1,Backend Development,In Progress,,2025/11/02,2025/11/04,purple
+THAMS-7,THAMS-1,Task,THAMS-7,Task,THAMS-1,Deployment and Documentation,To Do,,2025/11/02,2025/11/06,purple
+THAMS-6,THAMS-1,Task,THAMS-6,Task,THAMS-1,Integration and Testing,To Do,,2025/11/02,2025/11/11,purple
