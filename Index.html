@@ -63,7 +63,7 @@
 
     <div id="subjects">
       <div class="subject" onclick="showPrograms('SEPM')">SEPM</div>
-      <div class="subject" onclick="showPrograms('EH')">EH</div>
+      <div class="subject" onclick="showPrograms('DWM')">DWM</div>
       <div class="subject" onclick="showPrograms('DBMS')">DBMS</div>
       <div class="subject" onclick="showPrograms('PYTHON')">PYTHON</div>
     </div>
@@ -1083,13 +1083,432 @@ RT-010,End-to-End Regression Test - Full cycle verification,End-to-End Regressio
     
 },
   
-EH: {
-    "SQL Join Example": `-- SQL INNER JOIN Example
-SELECT employees.name, departments.dept_name
-FROM employees
-INNER JOIN departments
-ON employees.dept_id = departments.id;`
-  },
+
+
+DWM: {
+    "Snowflake & Star schema": {
+      code:`
+
+1. Open MySQL workbench
+2. Go to query
+3.FOR Star schema
+  Paste this entire code (After every semicolon(;) Click 'ctrl+enter')
+
+	CREATE DATABASE globalgadgets_dw;
+USE globalgadgets_dw;
+CREATE TABLE dim_product (
+  product_id INT PRIMARY KEY,
+  product_name VARCHAR(100),
+  category VARCHAR(50),
+  brand VARCHAR(50)
+);
+
+CREATE TABLE dim_customer (
+  customer_id INT PRIMARY KEY,
+  customer_name VARCHAR(100),
+  gender VARCHAR(10),
+  age INT
+);
+
+CREATE TABLE dim_time (
+  time_id INT PRIMARY KEY,
+  date DATE,
+  month VARCHAR(20),
+  quarter VARCHAR(10),
+  year INT
+);
+
+CREATE TABLE dim_location (
+  location_id INT PRIMARY KEY,
+  city VARCHAR(50),
+  state VARCHAR(50),
+  country VARCHAR(50)
+);
+
+CREATE TABLE fact_sales (
+  sales_id INT PRIMARY KEY,
+  product_id INT,
+  customer_id INT,
+  time_id INT,
+  location_id INT,
+  quantity_sold INT,
+  total_sales DECIMAL(10,2),
+  FOREIGN KEY (product_id) REFERENCES dim_product(product_id),
+  FOREIGN KEY (customer_id) REFERENCES dim_customer(customer_id),
+  FOREIGN KEY (time_id) REFERENCES dim_time(time_id),
+  FOREIGN KEY (location_id) REFERENCES dim_location(location_id)
+);
+
+
+4. Go To Database > Reverse Engineering > 
+5. In Stored Connection: (choose db )
+6. Click Next > Next
+7. Select Schemas (globalgadgets_dw) > Next
+8. Next > Execute > Next > Finish (Star Schema appears)
+
+9. Go back to query page
+10. For Snowflakes Schema
+	DROP TABLE IF EXISTS fact_sales;
+DROP TABLE IF EXISTS dim_city;
+DROP TABLE IF EXISTS dim_state;
+DROP TABLE IF EXISTS dim_country;
+
+11. Add the code 
+	CREATE TABLE dim_country (
+  country_id INT PRIMARY KEY,
+  country_name VARCHAR(50)
+);
+
+CREATE TABLE dim_state (
+  state_id INT PRIMARY KEY,
+  state_name VARCHAR(50),
+  country_id INT,
+  FOREIGN KEY (country_id) REFERENCES dim_country(country_id)
+);
+
+CREATE TABLE dim_city (
+  city_id INT PRIMARY KEY,
+  city_name VARCHAR(50),
+  state_id INT,
+  FOREIGN KEY (state_id) REFERENCES dim_state(state_id)
+);
+
+CREATE TABLE fact_sales (
+  sales_id INT PRIMARY KEY,
+  product_id INT,
+  customer_id INT,
+  time_id INT,
+  city_id INT,
+  quantity_sold INT,
+  total_sales DECIMAL(10,2),
+  FOREIGN KEY (product_id) REFERENCES dim_product(product_id),
+  FOREIGN KEY (customer_id) REFERENCES dim_customer(customer_id),
+  FOREIGN KEY (time_id) REFERENCES dim_time(time_id),
+  FOREIGN KEY (city_id) REFERENCES dim_city(city_id)
+);
+
+11. For Diagram
+
+Go To Database > Reverse Engineering >
+In Stored Connection: (choose db )
+Click Next > Next
+Select Schemas (globalgadgets_dw) > Next
+Next > Execute > Next > Finish (Snowflakes Schema appears)
+
+`,
+   files: [
+        "snowflake.sql"
+      ]  
+},
+
+
+
+
+
+"OLAP operations sales data warehouse of GlobalGadgets":  {
+      code:`
+1. Add the queries below to (query) 
+   (After every semicolon(;) Click 'ctrl+enter')
+
+	DROP DATABASE IF EXISTS globalgadgets_dw;
+CREATE DATABASE globalgadgets_dw;
+USE globalgadgets_dw;
+CREATE TABLE dim_product (
+  product_id INT PRIMARY KEY,
+  product_name VARCHAR(100),
+  category VARCHAR(50),
+  brand VARCHAR(50)
+);
+
+CREATE TABLE dim_customer (
+  customer_id INT PRIMARY KEY,
+  customer_name VARCHAR(100),
+  gender VARCHAR(10),
+  age INT
+);
+
+CREATE TABLE dim_time (
+  time_id INT PRIMARY KEY,
+  date DATE,
+  month VARCHAR(20),
+  quarter VARCHAR(10),
+  year INT
+);
+
+CREATE TABLE dim_location (
+  location_id INT PRIMARY KEY,
+  city VARCHAR(50),
+  state VARCHAR(50),
+  country VARCHAR(50)
+);
+
+CREATE TABLE fact_sales (
+  sales_id INT PRIMARY KEY,
+  product_id INT,
+  customer_id INT,
+  time_id INT,
+  location_id INT,
+  quantity_sold INT,
+  total_sales DECIMAL(10,2),
+  FOREIGN KEY (product_id) REFERENCES dim_product(product_id),
+  FOREIGN KEY (customer_id) REFERENCES dim_customer(customer_id),
+  FOREIGN KEY (time_id) REFERENCES dim_time(time_id),
+  FOREIGN KEY (location_id) REFERENCES dim_location(location_id)
+);
+
+INSERT INTO dim_customer (customer_id, customer_name, gender, age) VALUES
+(1, 'Alice Sharma', 'F', 28),
+(2, 'Rahul Mehta', 'M', 35),
+(3, 'Neha Verma', 'F', 24),
+(4, 'Amit Patel', 'M', 40),
+(5, 'Sana Iqbal', 'F', 30);
+INSERT INTO dim_location (location_id, city, state, country) VALUES
+(101, 'Mumbai', 'Maharashtra', 'India'),
+(102, 'Bangalore', 'Karnataka', 'India'),
+(103, 'Delhi', 'Delhi', 'India'),
+(104, 'Chennai', 'Tamil Nadu', 'India'),
+(105, 'Pune', 'Maharashtra', 'India');
+INSERT INTO dim_product (product_id, product_name, category, brand) VALUES
+(501, 'Smartphone', 'Electronics', 'Samsung'),
+(502, 'Headphones', 'Accessories', 'Boat'),
+(503, 'Tablet', 'Electronics', 'Apple'),
+(504, 'Smartwatch', 'Accessories', 'Noise'),
+(505, 'Laptop', 'Electronics', 'Dell');
+INSERT INTO dim_time (time_id, date, month, quarter, year) VALUES
+(1001, '2025-07-21', 'July', 'Q3', 2025),
+(1002, '2025-07-22', 'July', 'Q3', 2025),
+(1003, '2025-07-23', 'July', 'Q3', 2025),
+(1004, '2025-08-01', 'August', 'Q3', 2025),
+(1005, '2025-08-05', 'August', 'Q3', 2025);
+INSERT INTO fact_sales (sales_id, product_id, customer_id, time_id, location_id, quantity_sold, total_sales) VALUES
+(9001, 501, 1, 1001, 101, 2, 30000.00),
+(9002, 502, 2, 1002, 102, 1, 2000.00),
+(9003, 503, 3, 1003, 103, 1, 10000.00),
+(9004, 504, 4, 1004, 104, 2, 10000.00),
+(9005, 505, 5, 1005, 105, 1, 55000.00);
+
+SELECT * FROM dim_customer;
+SELECT * FROM dim_location;
+SELECT * FROM dim_product;
+SELECT * FROM dim_time;
+SELECT * FROM fact_sales;
+
+
+-- run OLAP Operations
+
+
+-- SLICE Operation
+
+SELECT 
+    dp.category,
+    dl.country,
+    SUM(fs.total_sales) AS total_sales_2025
+FROM fact_sales fs
+JOIN dim_product dp ON fs.product_id = dp.product_id
+JOIN dim_time dt ON fs.time_id = dt.time_id
+JOIN dim_location dl ON fs.location_id = dl.location_id
+WHERE dt.year = 2025
+GROUP BY dp.category, dl.country;
+
+-- DICE Operation
+
+SELECT 
+    dp.brand,
+    dl.city,
+    SUM(fs.total_sales) AS total_sales
+FROM fact_sales fs
+JOIN dim_product dp ON fs.product_id = dp.product_id
+JOIN dim_time dt ON fs.time_id = dt.time_id
+JOIN dim_location dl ON fs.location_id = dl.location_id
+WHERE dp.category = 'Electronics'
+  AND dl.country = 'India'
+  AND dt.quarter = 'Q3'
+GROUP BY dp.brand, dl.city;
+
+-- ROLL-UP Operation
+
+SELECT 
+    dl.country,
+    dl.state,
+    dl.city,
+    SUM(fs.total_sales) AS total_sales
+FROM fact_sales fs
+JOIN dim_location dl ON fs.location_id = dl.location_id
+GROUP BY dl.country, dl.state, dl.city WITH ROLLUP;
+
+-- DRILL-DOWN Operation
+
+SELECT 
+    dp.category,
+    dp.product_name,
+    SUM(fs.total_sales) AS total_sales
+FROM fact_sales fs
+JOIN dim_product dp ON fs.product_id = dp.product_id
+GROUP BY dp.category, dp.product_name
+ORDER BY dp.category;
+
+-- PIVOT (Cross-tab) Operation
+
+SELECT 
+    dp.category,
+    SUM(CASE WHEN dt.quarter = 'Q1' THEN fs.total_sales ELSE 0 END) AS Q1_Sales,
+    SUM(CASE WHEN dt.quarter = 'Q2' THEN fs.total_sales ELSE 0 END) AS Q2_Sales,
+    SUM(CASE WHEN dt.quarter = 'Q3' THEN fs.total_sales ELSE 0 END) AS Q3_Sales,
+    SUM(CASE WHEN dt.quarter = 'Q4' THEN fs.total_sales ELSE 0 END) AS Q4_Sales
+FROM fact_sales fs
+JOIN dim_product dp ON fs.product_id = dp.product_id
+JOIN dim_time dt ON fs.time_id = dt.time_id
+GROUP BY dp.category;
+
+`,
+files: [
+        "OLAP.sql"
+        
+      ] 
+    },
+
+
+
+"Perform data cleaning, transformation, and visualization using WEKA":  {
+      code:`
+
+1. open WEKA > Explorer > Open file > Select file'GlobalGadgets_Sales_Analysis.csv'
+2. Visualize All
+3. Data Cleaning 
+	(a) Apply “ReplaceMissingValues” Filter
+		Click Choose under “Filter”
+		filters → unsupervised → attribute → ReplaceMissingValues
+		Click Apply(WEKA replaces any blank cells with mean/mode values)
+	
+	(b) Remove Irrelevant Attributes
+		filters → unsupervised → attribute → Remove
+		Click on Remove > attributeIndices > enter 6,12 (to remove columns 6 and 12)
+		Click Apply
+
+4. Data Tansformation
+	(a) Normalize Data
+		Click Choose again under Filter.
+		filters → unsupervised → attribute → Normalize
+		Click Apply
+		(Scales all numeric attributes (like Quantity_Sold, Total_Sales, Age) between 0 and 1.)
+	(b) Discretize Continuous Attributes
+		filters → unsupervised → attribute → Discretize
+		Click Discretize > bins = 4
+		Click Total sales (numeric value)
+	(c) Convert Strings to Nominal
+		filters → unsupervised → attribute → StringToNominal
+		Click Apply
+		(Converts text data (like Product_Name, Brand) into categorical form WEKA can analyze.)
+
+
+5. Visualization
+	(a) Go to the Visualize Tab
+	(b) Change Color by Attribute
+	In the Color dropdown: Select Category or Brand
+			       You’ll now see colored clusters by product type.
+
+	(c) View Individual Attribute Distributions
+	Go back to Preprocess
+	Click any attribute (like Total_Sales or Category)
+
+	(d) Save Your Visualization
+	Right-click a plot → “Visualize All”
+	You can:Save image as .png
+		Export plot to use in your report
+
+
+`,
+files: [
+        "GlobalGadgets_Sales_Analysis.csv"
+      ] 
+    },
+
+
+"Implement discretization binning or k-Means using WEKA":  {
+      code:`
+1. Open WEKA > Explorer > Open file > Select file 'GlobalGadgets_Sales_Analysis.csv'
+2. Choose filter > Discretize > Click Discretize > bins = 5
+
+    Click Apply
+3. For k-Means Clustering
+   (a) Choose Cluster > SimpleKMeans
+   (b) Set the numclusters = 3
+   (c) Click Start
+   (d) View the results in the Clusters tab
+Step 5: Visualize the Clusters
+  In Result List, right click on simplekmeans > Visualize Cluster Assignments
+  X-axis: Total_Sales
+  Y-axis: Quantity_Sold
+  Each point = one record (sale transaction)
+  Each color = one cluster group
+  Cluster 0 → Low Sales (points on the left)
+  Cluster 1 → Medium Sales (middle)
+  Cluster 2 → High Sales (right)
+`,
+files: [
+        "GlobalGadgets_Sales_Analysis.csv"
+      ] 
+    },
+
+
+
+
+"":  {
+      code:`
+
+`,
+files: [
+        ""
+      ] 
+    },
+
+
+
+
+"":  {
+      code:`
+
+`,
+files: [
+        ""
+      ] 
+    },
+
+
+
+
+"":  {
+      code:`
+
+`,
+files: [
+        ""
+      ] 
+    },
+
+
+
+
+"":  {
+      code:`
+
+`,
+files: [
+        ""
+      ] 
+    },
+
+
+
+
+
+
+
+
+
+
+    
+},
   
 DBMS: {
     "FCFS Scheduling": `// First Come First Serve Scheduling
