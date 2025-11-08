@@ -64,7 +64,7 @@
     <div id="subjects">
       <div class="subject" onclick="showPrograms('SEPM')">SEPM</div>
       <div class="subject" onclick="showPrograms('DWM')">DWM</div>
-      <div class="subject" onclick="showPrograms('DBMS')">DBMS</div>
+      <div class="subject" onclick="showPrograms('CCIDF')">CCIDF</div>
       <div class="subject" onclick="showPrograms('PYTHON')">PYTHON</div>
     </div>
 
@@ -1510,13 +1510,120 @@ files: [
     
 },
   
-DBMS: {
-    "FCFS Scheduling": `// First Come First Serve Scheduling
-public class FCFS {
-    public static void main(String[] args) {
-        // Code for FCFS scheduling
-    }
-}`
+CCIDF: {
+    "Dealing with Passwords: ": {
+      code:` 
+    Dealing with Passwords: Understanding Hash Generators, Password Cracking & 
+Recovery,Recovering Browser Passwords 
+
+Password Hashing :
+import hashlib
+passwords = open("samplepasswords.txt").read().splitlines()
+with open("sample_hashes.txt", "w") as out:
+    for p in passwords:
+        md5 = hashlib.md5(p.encode()).hexdigest()
+        sha1 = hashlib.sha1(p.encode()).hexdigest()
+        sha256 = hashlib.sha256(p.encode()).hexdigest()
+        out.write(f"{p} MD5:{md5} SHA1:{sha1} SHA256:{sha256}\n")
+
+2.PASSWORD CRACKING 
+cat > lab_wordlist.txt <<'EOF' 
+password
+123456
+kali123
+welcome1
+srushti2025
+letmein
+EOF
+
+wc -l lab_wordlist.txt 
+
+head lab_wordlist.txt
+
+pwd 
+
+ls -la
+
+nano sample_passwords.txt
+
+ls -l sample_passwords.txt
+cat -n sample_passwords.txt
+
+wc -l lab_wordlist.txt
+head lab_wordlist.txt
+
+python3 - <<'PY'
+import hashlib
+import sys
+import os
+pwfile = 'sample_passwords.txt'
+if not os.path.isfile(pwfile):
+    print('ERROR: sample_passwords.txt not found', file=sys.stderr)
+    sys.exit(1)
+with open(pwfile, 'r', encoding='utf-8', errors='ignore') as f:
+    pwds = [p.strip() for p in f if p.strip()]
+if not pwds:
+    print('ERROR: sample_passwords.txt is empty', file=sys.stderr)
+    sys.exit(1)
+with open('md5.hash', 'w', encoding='utf-8') as m, \
+     open('sha1.hash', 'w', encoding='utf-8') as s, \
+     open('sha256.hash', 'w', encoding='utf-8') as t:
+    for p in pwds:
+        m.write(hashlib.md5(p.encode('utf-8')).hexdigest() + '\n')
+        s.write(hashlib.sha1(p.encode('utf-8')).hexdigest() + '\n')
+        t.write(hashlib.sha256(p.encode('utf-8')).hexdigest() + '\n')
+print(f'Created md5.hash, sha1.hash, sha256.hash with {len(pwds)} entries each')
+PY
+    
+wc -l md5.hash sha1.hash sha256.hash
+head -n 5 md5.hash    
+head -n 5 sha1.hash 
+head -n 5 sha256.hash
+
+stat sample_passwords.txt
+
+xxd -g 1 -l 200 sample_passwords.txt
+
+sudo apt update
+sudo apt install -y python3
+
+ls -l md5.hash
+
+wc -l md5.hash  
+
+nl -ba md5.hash
+
+time john --wordlist=lab_wordlist.txt --format=raw-md5 md5.hash
+
+john --show md5.hash > john_md5_show.txt (OPTIONAL COMMAND)
+
+cat john_md5_show.txt
+
+python3 - <<'PY'
+import hashlib
+passwords = ["password123", "forensic2025", "Tr0ub4dor", "strong!Pass99"]
+with open("md5.hash", "w") as f:
+    for p in passwords:
+        f.write(hashlib.md5(p.encode()).hexdigest() + "\n")
+print("md5.hash regenerated with", len(passwords), "entries")
+PY
+
+sed -n '1,200p' md5.hash         
+tail -n 20 md5.hash
+
+john --show  md5.hash | tee john_md5_show.txt
+cat john_md5_show.txt
+
+grep -n -E 'password|123456|kali123|welcome1|srushti2025|letmein' lab_wordlist.txt || echo "wordlist missing expected"
+
+`,
+files: [
+        "cipher.py",
+        "samplepasswords.txt"
+      ] 
+    },
+
+
   },
   
 PYTHON: {
