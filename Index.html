@@ -1616,14 +1616,127 @@ cat john_md5_show.txt
 
 grep -n -E 'password|123456|kali123|welcome1|srushti2025|letmein' lab_wordlist.txt || echo "wordlist missing expected"
 
+
+
+Browser Password Recovery
+open Firefox > Preferences > Privacy & Security > Saved Logins > Show Passwords > Yes
+https://accounts.firefox.com/signup?context=fx_desktop_v3&entrypoint=password-manager&action=email&service=sync
+
+sudo apt update
+sudo apt install -y python3 python3-pip libnss3-tools
+
+cd ~
+git clone https://github.com/unode/firefox_decrypt.git
+cd firefox_decrypt
+python3 -m pip install -r requirements.txt 2>/dev/null || true
+# run (it will detect your Firefox profiles)
+python3 firefox_decrypt.py --profile ~/.mozilla/firefox/*.default-release --csv firefox_decrypted.csv
+
+
 `,
 files: [
         "cipher.py",
-        "samplepasswords.txt"
+        "samplepasswords.txt",
+        "passwords.csv"
+
       ] 
     },
 
 
+
+"Forensic Tools of the Trade: Encrypting and Decrypting Files":  {
+      code:`
+Forensic Tools of the Trade: Encrypting and Decrypting Files
+`,
+files: [
+        "Experiment 6 ccidf (1).pdf"
+      ] 
+    },
+
+
+
+"STEGANOGRAPHY: Using tools like Steghide or OpenStego.":  {
+      code:`
+STEGANOGRAPHY: Using tools like Steghide or OpenStego.
+`,
+files: [
+        "Experiment No 7 ccidf.pdf (1).docx"
+      ] 
+    },
+
+
+"Static Acquisition: Using a Write Blocker, Creating a Forensic Image ":  {
+      code:`
+Static Acquisition: Using a Write Blocker, Creating a Forensic Image
+`,
+files: [
+        "Experiment No 8 srushti (1).pdf"
+      ] 
+    },
+
+
+" Live Acquisition: BitLocker, Live Acquisition":  {
+      code:`
+ Live Acquisition: BitLocker, Live Acquisition
+`,
+files: [
+        "Srushti_Exp9_CCIDF (1).pdf"
+      ] 
+    },
+
+
+
+"Mobile Forensic: Cellular Antenna Search, Confiscating a Mobile Device, Tracking a Suspect using WiFi, SD Card Evidence.":  {
+      code:`
+Mobile Forensic: Cellular Antenna Search, Confiscating a Mobile Device, Tracking a Suspect using WiFi, SD Card Evidence.
+`,
+files: [
+        "CCIDF EXP 10 (1).pdf"
+      ] 
+    },
+
+
+
+"Network Forensics: CLI Utilities, OUI Lookup, Examining Network Packets":  {
+      code:`
+Network Forensics: CLI Utilities, OUI Lookup, Examining Network Packets
+`,
+files: [
+        "CCIDF EXP 11.pdf"
+      ] 
+    },
+
+
+"Network Forensics: CLI Utilities, OUI Lookup, Examining Network Packets":  {
+      code:`
+Network Forensics: CLI Utilities, OUI Lookup, Examining Network Packets
+`,
+files: [
+        "CCIDF EXP 10 (1).pdf"
+      ] 
+    },
+
+
+"":  {
+      code:`
+
+`,
+files: [
+        ""
+      ] 
+    },
+
+
+
+
+
+
+
+
+
+
+
+    
   },
   
 PYTHON: {
